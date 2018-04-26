@@ -12,11 +12,11 @@ Given that the project leader is logged in
 When I change the activity with ID "20171303a001" to have name "Designing the Add"  
 Then the activity with ID "20171303a001" now has the name "Designing the Add"  
 	
-#Scenario: Change the time - estimate of an activity 
-#Given that the project leader is logged in 
-#When I change the activity with ID "20171303a001" to have time - estimate "12 days"  
-#Then the activity with ID "20171303a001" now has the time - estimate "12 days"  
-#	
+Scenario: Change the time - estimate of an activity 
+Given that the project leader is logged in 
+When I change the activity with ID "20171303a001" to have time - estimate "96 hours"  
+Then the activity with ID "20171303a001" now has the time - estimate "96 hours"  
+	
 #Scenario: Change the description of an activity 
 #Given that the project leader is logged in 
 #When I change the activity with ID "20171303a001" to have description "Designing the Add poster"  

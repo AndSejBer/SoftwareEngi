@@ -1,9 +1,10 @@
 package dtu.library.app;
-//test
+
 public class Activity {
 
 	private String ID;
 	private String name;
+	private String description;
 	private int timeEstimate;
 	private Worker workers[] = new Worker[2];
 	private Project project;
@@ -12,9 +13,6 @@ public class Activity {
 		this.name = name;
 		this.timeEstimate = timeEstimate;
 		this.project = project;
-		for (int i=1, i<10; i++) {
-			int helloworld = i;
-		}
 	}
 
 	public Activity(int timeEstimate, Project project) throws Exception {
@@ -88,7 +86,9 @@ public class Activity {
 				name = change;
 			} else if (changeWhat.equals("changeTimeEstimate")) {
 				timeEstimate = Integer.parseInt(change);
-			} //If there's other stuff like description, conditions etc. Add after this
+			} else if (changeWhat.equals("changeDescription")) {
+				description = change;
+			}//If there's other stuff like description, conditions etc. Add after this
 		} else {
 			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
 		}
