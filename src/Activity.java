@@ -1,5 +1,5 @@
-
-
+package dtu.library.app;
+//test
 public class Activity {
 
 	private String ID;
@@ -24,6 +24,10 @@ public class Activity {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getTimeEstimate() {
+		return timeEstimate;
 	}
 
 	public void addWorker(Worker worker) throws Exception{
@@ -71,6 +75,19 @@ public class Activity {
 			}
 		} else {
 			throw new OperationNotAllowedException("Must be either project leader or the worker to remove from activity");
+		}
+	}
+	
+	public void changeActivity(Worker developer, String iD, String changeWhat, String change) throws Exception{
+		if(project.getProjectLeader().equals(developer) || developer.getID().equals(iD)) {
+			//Depending on changeWhat, the activity will be changed accordingly (such as activity name)
+			if (changeWhat.equals("changeName")) {
+				name = change;
+			} else if (changeWhat.equals("changeTimeEstimate")) {
+				timeEstimate = Integer.parseInt(change);
+			} //If there's other stuff like description, conditions etc. Add after this
+		} else {
+			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
 		}
 	}
 }
