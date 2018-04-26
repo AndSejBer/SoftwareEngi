@@ -1,5 +1,5 @@
 package dtu.library.app;
-//test
+
 public class Activity {
 
 	private String ID;
@@ -12,9 +12,6 @@ public class Activity {
 		this.name = name;
 		this.timeEstimate = timeEstimate;
 		this.project = project;
-		for (int i=1, i<10; i++) {
-			int helloworld = i;
-		}
 	}
 
 	public Activity(int timeEstimate, Project project) throws Exception {
