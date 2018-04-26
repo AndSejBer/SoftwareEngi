@@ -1,5 +1,4 @@
 package dtu.library.app;
-//test
 public class Activity {
 
 	private String name;
