@@ -7,7 +7,7 @@ public class Activity {
 	private String ID;
 	private String name;
 	private double timeEstimate;
-	private double timeSpent;
+	private double timeSpent = 0;
 	private Worker workers[] = new Worker[2];
 	private Project project;
 
