@@ -47,26 +47,19 @@ public class Work_On_Activity_Test {
 	@When("^I work on the activity and add the time used: \"([^\"]*)\"$")
 	public void IWorkOnTheActivityAndAddTheTimeUsed(double tid) throws Exception {
 		try {
-	//		System.out.println("del 1");
 			project.getActivities().get(0).addTimeSpent(tid, workers.get(1));
 		} catch (Exception e) {
 			errmsg = e.getMessage();
-	//		System.out.println("del 2");
-	//		e.printStackTrace();
 		}
 	}
 
 	@Then("^The activity has accumulated \"([^\"]*)\" amount of time$")
-	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {
-//		System.out.println(alltime+"all time should be");
-//		System.out.println(project.getActivities().get(0).gettimeSpent()+"alltime is");
+	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {//		System.out.println(alltime+"all time should be");
 		assertTrue(project.getActivities().get(0).gettimeSpent() == (alltime));
 	}
 
 	@Then("^I get the Must be assigned to activity to add time error \"([^\"]*)\"$")
 	public void IGetTheMustBeAssignedToActivityToAddTimeerror(String arg1) throws Exception {
-	//	System.out.println(arg1);
-	//	System.out.println(errmsg);
 		assertTrue(errmsg.equals(arg1));
 	}
 }
