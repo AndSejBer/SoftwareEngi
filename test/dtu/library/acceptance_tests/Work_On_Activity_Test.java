@@ -20,7 +20,7 @@ public class Work_On_Activity_Test {
 	@Given("^that I have a Worker \"([^\"]*)\"$")
 	public void thatIHaveAWorker(String iD) throws Exception {
 		workers.add(new Worker(iD));
-		project.addWorker(workers.get(0));
+		project.addWorker(workers.get(workers.size() - 1));
 	}
 
 	@Given("^I have an activity with name \"([^\"]*)\" and time-estimate \"([^\"]*)\"$")
@@ -44,6 +44,13 @@ public class Work_On_Activity_Test {
 		assertTrue(project.getActivities().get(0).getWorkers()[0].getID().equals(iD));
 	}
 
+	@Then("^Worker \"([^\"]*)\" and Worker \"([^\"]*)\" is working on activity \"([^\"]*)\"$")
+	public void workerAndWorkerIsWorkingOnActivity(String iD1, String iD2, String name) throws Exception {
+		assertTrue(project.getActivities().get(0).getWorkers()[0].getID().equals(iD1)
+				&& project.getActivities().get(0).getWorkers()[1].getID().equals(iD2));
+
+	}
+
 	@When("^I work on the activity and add the time used: \"([^\"]*)\"$")
 	public void IWorkOnTheActivityAndAddTheTimeUsed(double tid) throws Exception {
 		try {
@@ -54,7 +61,7 @@ public class Work_On_Activity_Test {
 	}
 
 	@Then("^The activity has accumulated \"([^\"]*)\" amount of time$")
-	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {//		System.out.println(alltime+"all time should be");
+	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {
 		assertTrue(project.getActivities().get(0).gettimeSpent() == (alltime));
 	}
 
