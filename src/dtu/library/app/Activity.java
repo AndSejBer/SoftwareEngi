@@ -49,11 +49,15 @@ public class Activity {
 	public void addTimeSpent(double time, Worker worker) throws Exception {
 		if (time <= 0) {
 			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
-		} else if (((!(workers[0] == null)) && (!(worker.getID().equals(workers[0].getID()))))
+		} else if (((workers[0] == null) && (workers[1] == null))
+				|| ((!(workers[0] == null)) && (!(worker.getID().equals(workers[0].getID()))))
 				|| ((!(workers[1] == null)) && (!(worker.getID().equals(workers[1].getID()))))) {
+	//		System.out.println("it throws stuff");
 			throw new OperationNotAllowedException("Must be assigned to activity to add time");
 		} else {
+//			System.out.println(time +"time added");
 			timeSpent += (time);
+//			System.out.println(time);
 		}
 	}
 

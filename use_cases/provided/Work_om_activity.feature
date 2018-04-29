@@ -8,26 +8,27 @@ Scenario: Worker works on an activity
 	When Worker "abc1" takes activity "Act1" 
 	Then Worker "abc1" is working on activity "Act1" 
 	
-	Scenario: Worker takes an activity and adds time once
-	Given that I have a Worker "abc1"
+Scenario: Worker takes an activity and adds time once 
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Act1" 
+	When I work on the activity and add the time used: "5" 
+	Then The activity has accumulated "5" amount of time 
+	
+Scenario: Worker works on an not assigned activity and adds time once 
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	When I work on the activity and add the time used: "5" 
+	Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time" 
+	
+	
+Scenario: Worker works two times on an activity 
+	Given that I have a Worker "abc1" 
 	And I have an activity with name "Act1" and time-estimate "10"
 	And Worker "abc1" takes activity "Act1"
-	When I work on the activity and add the time used: "5"
-		Then The activity has accumulated "5" amount of time
-	
-	Scenario: Worker works on an not assigned activity and adds time once
-		Given that I have a Worker "abc1"
-	And I have an activity with name "Act1" and time-estimate "10"
-	 	When I work on the activity and add the time used: "5"
-		Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time"
-	
-	
-	Scenario: Worker works two times on an activity
-		Given that I have a Worker "abc1"
-		And I have an activity with name "Act1" and time-estimate "10"
-		And I work on the activity and add the time used: "5"
-		When I work on the activity and add the time used: "3"
-		Then The activity has accumulated "8" amount of time
+	And I work on the activity and add the time used: "5" 
+	When I work on the activity and add the time used: "3" 
+	Then The activity has accumulated "8" amount of time 
 	
 	##Scenario: Worker adds other worker to help
 	##Given that I have a Worker "abc1"
