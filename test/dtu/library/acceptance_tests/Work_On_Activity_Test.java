@@ -24,7 +24,7 @@ public class Work_On_Activity_Test {
 	}
 
 	@Given("^I have an activity with name \"([^\"]*)\" and time-estimate \"([^\"]*)\"$")
-	public void iHaveAnActivityWithNameAndTimeEstimate(String name, int te) throws Exception {
+	public void iHaveAnActivityWithNameAndTimeEstimate(String name, double te) throws Exception {
 		workers.add(0, new Worker("ProL"));
 		project.setProjectLeader(workers.get(0), workers.get(0));
 		project.addActivity(workers.get(0), new Activity(name, te, project));
@@ -43,24 +43,30 @@ public class Work_On_Activity_Test {
 	public void workerIsWorkingOnActivity(String iD, String name) throws Exception {
 		assertTrue(project.getActivities().get(0).getWorkers()[0].getID().equals(iD));
 	}
+
 	@When("^I work on the activity and add the time used: \"([^\"]*)\"$")
 	public void IWorkOnTheActivityAndAddTheTimeUsed(double tid) throws Exception {
 		try {
+	//		System.out.println("del 1");
 			project.getActivities().get(0).addTimeSpent(tid, workers.get(1));
 		} catch (Exception e) {
 			errmsg = e.getMessage();
-			e.printStackTrace();
+	//		System.out.println("del 2");
+	//		e.printStackTrace();
 		}
 	}
 
 	@Then("^The activity has accumulated \"([^\"]*)\" amount of time$")
 	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {
-		System.out.print(alltime + " " + project.getActivities().get(0).gettimeSpent());
+//		System.out.println(alltime+"all time should be");
+//		System.out.println(project.getActivities().get(0).gettimeSpent()+"alltime is");
 		assertTrue(project.getActivities().get(0).gettimeSpent() == (alltime));
 	}
 
 	@Then("^I get the Must be assigned to activity to add time error \"([^\"]*)\"$")
 	public void IGetTheMustBeAssignedToActivityToAddTimeerror(String arg1) throws Exception {
-		assertTrue(true);
+	//	System.out.println(arg1);
+	//	System.out.println(errmsg);
+		assertTrue(errmsg.equals(arg1));
 	}
 }
