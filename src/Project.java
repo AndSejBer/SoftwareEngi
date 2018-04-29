@@ -8,6 +8,7 @@ public class Project {
 	private String name,iD;
 	private Worker projectLeader;
 	private ArrayList <Activity> activities = new ArrayList <Activity>();
+	private int activityCounter = 0;
 	private ArrayList <Worker> workers = new ArrayList <Worker>();
 
 	//Running number should be corrected
@@ -29,6 +30,8 @@ public class Project {
 	public void addActivity(Worker developer, Activity activity) throws Exception{
 		if (!(projectLeader == null) && developer.getID().equals(projectLeader.getID())) {
 			activities.add(activity);
+			activityCounter++;
+			activity.setIDForActivity(activityCounter);
 		}else {
 			throw new OperationNotAllowedException("Must be project leader to create new activity");
 		}

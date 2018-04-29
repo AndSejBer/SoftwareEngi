@@ -1,10 +1,13 @@
 package dtu.library.app;
 
+import java.time.LocalDate;
+
 public class Activity {
 
 	private String ID;
 	private String name;
 	private String description;
+	private String condition;
 	private int timeEstimate;
 	private Worker workers[] = new Worker[2];
 	private Project project;
@@ -14,6 +17,14 @@ public class Activity {
 		this.timeEstimate = timeEstimate;
 		this.project = project;
 	}
+	
+	public Activity(String name, int timeEstimate, Project project, String description, String condition) {
+		this.name = name;
+		this.timeEstimate = timeEstimate;
+		this.project = project;
+		this.description = description;
+		this.condition = condition;
+	}
 
 	public Activity(int timeEstimate, Project project) throws Exception {
 		throw new OperationNotAllowedException("Name is required for an activity");
@@ -22,13 +33,26 @@ public class Activity {
 	public Activity(String name, Project project) throws Exception {
 		throw new OperationNotAllowedException("Time estimate is required for an activity");
 	}
+	
+	public void setIDForActivity(int activityNumber) {
+		ID ="" + LocalDate.now().getYear() + LocalDate.now().getMonthValue() + LocalDate.now().getDayOfMonth() + "-a" + activityNumber;
+	}
 
+	public String getID() {
+		return ID;
+	}
 	public String getName() {
 		return name;
 	}
-	
-	public int getTimeEstimate() {
-		return timeEstimate;
+	public String getDescription() {
+		return description;
+	}
+	public String getCondition() {
+		return condition;
+	}
+	public String getTimeEstimate() {
+		String sTime = "Time estimate is: " + Integer.toString(timeEstimate) + " half hours which is also " + Integer.toString(timeEstimate/2) + " hours";
+		return sTime;
 	}
 
 	public void addWorker(Worker worker) throws Exception{
@@ -80,7 +104,7 @@ public class Activity {
 	}
 	
 	public void changeActivity(Worker developer, String iD, String changeWhat, String change) throws Exception{
-		if(project.getProjectLeader().equals(developer) || developer.getID().equals(iD)) {
+		if(project.getProjectLeader().equals(developer) || developer.getID().equals(iD) || !(change.equals(null))) {
 			//Depending on changeWhat, the activity will be changed accordingly (such as activity name)
 			if (changeWhat.equals("changeName")) {
 				name = change;
@@ -88,7 +112,11 @@ public class Activity {
 				timeEstimate = Integer.parseInt(change);
 			} else if (changeWhat.equals("changeDescription")) {
 				description = change;
-			}//If there's other stuff like description, conditions etc. Add after this
+			} else if (changeWhat.equals("changeCondition")) {
+				condition = change;
+			} else {
+				throw new OperationNotAllowedException("Must be valid change command (changeName, changeTimeEstimate, changeDescription, changeCondition)");
+			}
 		} else {
 			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
 		}
