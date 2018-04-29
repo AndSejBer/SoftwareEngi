@@ -30,13 +30,13 @@ Scenario: Worker works two times on an activity
 	When I work on the activity and add the time used: "3" 
 	Then The activity has accumulated "8" amount of time 
 	
-	##Scenario: Worker adds other worker to help
-	##Given that I have a Worker "abc1"
-	##And Worker "abc1" takes activity ""
-	##And I have a Worker "abc2"
-	##And I have an activity with name "" and time-estimate ""
-	##When I add Worker "abc2" to help on activity 
-	##Then Worker "abc2" is added to the activity
+	Scenario: Worker adds other worker to help
+	Given that I have a Worker "abc1"
+	And I have an activity with name "Act1" and time-estimate "10"
+	And Worker "abc1" takes activity "Act1"
+	And that I have a Worker "abc2"
+	When Worker "abc2" takes activity "Act1"
+	Then Worker "abc1" and Worker "abc2" is working on activity "Act1"
 	
 	##Scenario: Worker gets help from another worker
 	##Given that I have a Worker "abc1"
