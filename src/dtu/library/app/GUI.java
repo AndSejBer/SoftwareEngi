@@ -8,16 +8,16 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener{//Initialization of most parts of the GUI:
 	protected JTextArea informationLabel = new JTextArea();
 	protected JLabel listOfProjectsL = new JLabel("All current projects:");
-	
+
 	protected JTextArea projectsListAdditional = new JTextArea();
 
-	
+
 	protected static GUI gUI = new GUI();
-	
+
 	//The sheets of options
 	protected MainSheet mainSheet = new MainSheet(this);
 	protected ChangeOperationSheet changeOptSheet = new ChangeOperationSheet(this);
-	
+
 
 	//List of the projects
 	protected ArrayList<Project> allCurrentProjects = new ArrayList<Project>();
@@ -38,7 +38,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		informationLabel.setLineWrap(true);
 		JScrollPane infoPane = new JScrollPane(informationLabel);
 
-		
+
 		//The layout of the main part is a grid layout with 2 horizontal slots
 		getContentPane().setLayout(new GridLayout(1,2));
 
@@ -48,6 +48,12 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		mainSheet.addTimeB.addActionListener(this);
 		mainSheet.startOnProjectB.addActionListener(this);
 		mainSheet.startOnActivityB.addActionListener(this);
+
+		changeOptSheet.setProjectLeadB.addActionListener(this);
+		changeOptSheet.changeActivityNameB.addActionListener(this);
+		changeOptSheet.changeTimeEstimateB.addActionListener(this);
+		changeOptSheet.changeActivityDescriptionB.addActionListener(this);
+		changeOptSheet.changeActivityConditionB.addActionListener(this);
 
 		//The list of all current projects is setup
 		JPanel projectsList = new JPanel();
@@ -72,7 +78,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		JTabbedPane options = new JTabbedPane();
 		options.add("Main options", mainSheet);
 		options.add("Change options", changeOptSheet);
-		
+
 		//Adding it all to the main GUI
 		getContentPane().add(projectsList);
 		getContentPane().add(options);
@@ -127,15 +133,8 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			if (current == null) {
 				informationLabel.setText("No project with that ID or name found \n");
 			} 
-			projectsListAdditional.setText("");
-
-			for (int i = 0; i < allCurrentProjects.size(); i++) {
-				projectsListAdditional.append(allCurrentProjects.get(i).getName() + " with ID: " + allCurrentProjects.get(i).getID() + "\n");
-				projectsListAdditional.append("With activities: \n");
-				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
-					projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + " with time used: " + allCurrentProjects.get(i).getActivities().get(j).gettimeSpent() + " of " + allCurrentProjects.get(i).getActivities().get(j).getTimeEstimate() + "\n");
-				}
-			}
+			
+			reDrawProjectList();
 
 			mainSheet.newActivityNameF.setText("");
 			mainSheet.newActivityProjectF.setText("");
@@ -161,20 +160,13 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 					informationLabel.setText(error.getMessage() + "\n");
 				}
 			}
-
-			projectsListAdditional.setText("");
-
-			for (int i = 0; i < allCurrentProjects.size(); i++) {
-				projectsListAdditional.append(allCurrentProjects.get(i).getName() + " with ID: " + allCurrentProjects.get(i).getID() + "\n");
-				projectsListAdditional.append("With activities: \n");
-				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
-					projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + " with time used: " + allCurrentProjects.get(i).getActivities().get(j).gettimeSpent() + " of " + allCurrentProjects.get(i).getActivities().get(j).getTimeEstimate() + "\n");
-				}
-			}
+			
+			reDrawProjectList();
+			
 			mainSheet.addTimeActivityF.setText("");
 			mainSheet.addTimeFromF.setText("");
 			mainSheet.addTimeToF.setText("");
-			
+
 		}else if (e.getSource() == mainSheet.startOnProjectB) {
 			Project current = null;
 
@@ -194,7 +186,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				informationLabel.setText("No project with that ID or name found \n");
 			} 
 			mainSheet.workOnProjectProjectF.setText("");
-			
+
 		}else if (e.getSource() == mainSheet.startOnActivityB) {
 			Activity currentA = null;
 
@@ -206,7 +198,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 					}
 				}
 			}
-			
+
 			try {
 				currentA.addWorker(worker);
 				informationLabel.setText("Started working on activity: " + mainSheet.workOnActivityActivityF.getText() + "\n");
@@ -217,8 +209,74 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 					informationLabel.setText(error.getMessage() + "\n");
 				}
 			}
-			
+
 			mainSheet.workOnActivityActivityF.setText("");
+		} else if (e.getSource() == changeOptSheet.setProjectLeadB) {
+			Project current = null;
+			Worker currentW = null;
+
+			for (int i = 0; i < allCurrentProjects.size(); i++) {
+				if (allCurrentProjects.get(i).getID().equals(changeOptSheet.setProjectLeadProjectF.getText()) || allCurrentProjects.get(i).getName().equals(changeOptSheet.setProjectLeadProjectF.getText())) {
+					current = allCurrentProjects.get(i);
+				}
+			}
+
+			for (int i = 0; i < availableWorkers.size(); i++) {
+				if (availableWorkers.get(i).getID().equals(changeOptSheet.setProjectLeadWorkerF.getText())) {
+					currentW = availableWorkers.get(i);
+				}
+			}
+
+			try {
+				current.setProjectLeader(worker, currentW);
+				informationLabel.setText("Succesfully change projectleader \n");
+			} catch (Exception error) {
+				if (current == null) {
+					informationLabel.append("No project with that ID/name found \n");
+				} else if (currentW == null) {
+					informationLabel.append("No worker with that ID found \n");
+				} else {
+					informationLabel.setText(error.getMessage() + "\n");
+				}
+			}
+			
+			changeOptSheet.setProjectLeadWorkerF.setText("");
+			changeOptSheet.setProjectLeadProjectF.setText("");
+
+		} else if (e.getSource() == changeOptSheet.changeActivityNameB) {
+			Activity currentA = null;
+
+			for (int i = 0; i < allCurrentProjects.size(); i++) {
+				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
+					if (allCurrentProjects.get(i).getActivities().get(j).getName().equals(changeOptSheet.changeActivityNameActivityF.getText())) {
+						currentA = allCurrentProjects.get(i).getActivities().get(j);
+						break;
+					}
+				}
+			}
+			
+			try {
+				currentA.changeActivityName(worker, changeOptSheet.changeActivityNameNameF.getText());
+				informationLabel.setText("Succesfully changed activity name \n");
+			} catch (Exception error) {
+				if (currentA == null) {
+					informationLabel.setText("No activity found with name: " + changeOptSheet.changeActivityNameActivityF.getText() + "\n");
+				} else {
+					informationLabel.setText(error.getMessage() + "\n");
+				}
+			}
+			
+			reDrawProjectList();
+			
+			changeOptSheet.changeActivityNameActivityF.setText("");
+			changeOptSheet.changeActivityNameNameF.setText("");
+			
+		} else if (e.getSource() == changeOptSheet.changeTimeEstimateB) {
+
+		} else if(e.getSource() == changeOptSheet.changeActivityDescriptionB) {
+
+		} else if (e.getSource() == changeOptSheet.changeActivityConditionB) {
+
 		}
 	}
 
@@ -229,6 +287,17 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			}
 		}
 		throw new OperationNotAllowedException("Cannot find worker with iD: " + iD);
+	}
+	
+	private void reDrawProjectList() {
+		projectsListAdditional.setText("");
+		for (int i = 0; i < allCurrentProjects.size(); i++) {
+			projectsListAdditional.append(allCurrentProjects.get(i).getName() + " with ID: " + allCurrentProjects.get(i).getID() + "\n");
+			projectsListAdditional.append("With activities: \n");
+			for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
+				projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + " with time used: " + allCurrentProjects.get(i).getActivities().get(j).gettimeSpent() + " of " + allCurrentProjects.get(i).getActivities().get(j).getTimeEstimate() + "\n");
+			}
+		}
 	}
 
 	public Worker getCurrentWorker() {
