@@ -56,7 +56,16 @@ public class Activity {
 
 	public String getCondition() {
 		return condition;
-    
+	}
+	
+	public void addTimeSpent(double workedfrom, double workedtoo) throws Exception {
+		if (workedtoo - workedfrom <= 0) {
+			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
+		} else {
+			timeSpent += (workedtoo - workedfrom);
+		}
+	}
+		
 	public void addTimeSpent(double time, Worker worker) throws Exception {
 		if (time <= 0) {
 			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
