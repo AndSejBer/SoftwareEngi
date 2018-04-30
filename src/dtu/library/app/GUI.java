@@ -109,7 +109,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				try { 
 					allCurrentProjects.get(allCurrentProjects.size()-1).setProjectLeader(getCurrentWorker(), findWorker(mainSheet.newProjectLeadF.getText()));
 				} catch (Exception error) {
-					informationLabel.setText(error.getMessage() + "\n");
+					informationLabel.append(error.getMessage() + "\n");
 				}
 			}
 			mainSheet.newProjectNameF.setText("");
@@ -125,13 +125,13 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 					try {
 						current.addActivity(worker, new Activity(mainSheet.newActivityNameF.getText(), Double.parseDouble(mainSheet.newActivityTimeEstF.getText()), current));
 					} catch (Exception error) {
-						informationLabel.setText(error.getMessage() + "\n");
+						informationLabel.append(error.getMessage() + "\n");
 					}
 				}
 			}
 
 			if (current == null) {
-				informationLabel.setText("No project with that ID or name found \n");
+				informationLabel.append("No project with that ID or name found \n");
 			} 
 			
 			reDrawProjectList();
@@ -155,9 +155,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				currentA.addTimeSpent(Double.parseDouble(mainSheet.addTimeFromF.getText()), Double.parseDouble(mainSheet.addTimeToF.getText()));
 			} catch (Exception error) {
 				if (currentA == null) {
-					informationLabel.setText("No activity found with name: " + mainSheet.addTimeActivityF.getText() + "\n");
+					informationLabel.append("No activity found with name: " + mainSheet.addTimeActivityF.getText() + "\n");
 				} else {
-					informationLabel.setText(error.getMessage() + "\n");
+					informationLabel.append(error.getMessage() + "\n");
 				}
 			}
 			
@@ -175,15 +175,15 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 					current = allCurrentProjects.get(i);
 					try {
 						current.addWorker(worker);
-						informationLabel.setText("Started working on project: " + mainSheet.workOnProjectProjectF.getText() + "\n");
+						informationLabel.append("Started working on project: " + mainSheet.workOnProjectProjectF.getText() + "\n");
 					} catch (Exception error) {
-						informationLabel.setText(error.getMessage() + "\n");
+						informationLabel.append(error.getMessage() + "\n");
 					}
 				}
 			}
 
 			if (current == null) {
-				informationLabel.setText("No project with that ID or name found \n");
+				informationLabel.append("No project with that ID or name found \n");
 			} 
 			mainSheet.workOnProjectProjectF.setText("");
 
@@ -201,12 +201,12 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			try {
 				currentA.addWorker(worker);
-				informationLabel.setText("Started working on activity: " + mainSheet.workOnActivityActivityF.getText() + "\n");
+				informationLabel.append("Started working on activity: " + mainSheet.workOnActivityActivityF.getText() + "\n");
 			} catch (Exception error) {
 				if (currentA == null) {
-					informationLabel.setText("No activity found with name: " + mainSheet.workOnActivityActivityF.getText() + "\n");
+					informationLabel.append("No activity found with name: " + mainSheet.workOnActivityActivityF.getText() + "\n");
 				} else {
-					informationLabel.setText(error.getMessage() + "\n");
+					informationLabel.append(error.getMessage() + "\n");
 				}
 			}
 
@@ -229,14 +229,14 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			try {
 				current.setProjectLeader(worker, currentW);
-				informationLabel.setText("Succesfully change projectleader \n");
+				informationLabel.append("Succesfully change projectleader \n");
 			} catch (Exception error) {
 				if (current == null) {
 					informationLabel.append("No project with that ID/name found \n");
 				} else if (currentW == null) {
 					informationLabel.append("No worker with that ID found \n");
 				} else {
-					informationLabel.setText(error.getMessage() + "\n");
+					informationLabel.append(error.getMessage() + "\n");
 				}
 			}
 			
@@ -257,12 +257,12 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			
 			try {
 				currentA.changeActivityName(worker, changeOptSheet.changeActivityNameNameF.getText());
-				informationLabel.setText("Succesfully changed activity name \n");
+				informationLabel.append("Succesfully changed activity name \n");
 			} catch (Exception error) {
 				if (currentA == null) {
-					informationLabel.setText("No activity found with name: " + changeOptSheet.changeActivityNameActivityF.getText() + "\n");
+					informationLabel.append("No activity found with name: " + changeOptSheet.changeActivityNameActivityF.getText() + "\n");
 				} else {
-					informationLabel.setText(error.getMessage() + "\n");
+					informationLabel.append(error.getMessage() + "\n");
 				}
 			}
 			
