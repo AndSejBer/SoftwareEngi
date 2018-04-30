@@ -53,8 +53,20 @@ public class Activity {
 	public String getDescription() {
 		return description;
 	}
+
 	public String getCondition() {
 		return condition;
+    
+	public void addTimeSpent(double time, Worker worker) throws Exception {
+		if (time <= 0) {
+			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
+		} else if (((workers[0] == null) && (workers[1] == null))
+				|| ((!(workers[0] == null)) && (!(worker.getID().equals(workers[0].getID()))))
+				|| ((!(workers[1] == null)) && (!(worker.getID().equals(workers[1].getID()))))) {
+			throw new OperationNotAllowedException("Must be assigned to activity to add time");
+		} else {
+			timeSpent += (time);
+		}
 	}
 
 
