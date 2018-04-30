@@ -8,7 +8,6 @@ Given that the projectleader logs in
 And the activity with name "Design Add", time - estimate "10.0" , description "Design add poster", condition "Well made poster so customer is happy" and worker with ID "Kenny" exists
 And the activity with name "Find Slogan" and time - estimate "7" exists
 
-
 Scenario: Change the name of an activity 
 Given that the projectleader logs in
 When i change the activity with ID "20170429a1" to have name "Designing the Add"  
@@ -48,7 +47,3 @@ Scenario: Change a blank conditions of an activity
 Given that the projectleader logs in
 When I change the activity with ID "20171303a2" to have the description "Find a good Slogan"
 Then the activity with ID "20171303a2" now actually has the description "Find a good Slogan"
-
-
-
-
