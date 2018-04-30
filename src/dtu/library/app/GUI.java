@@ -13,7 +13,10 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 	
 	protected static GUI gUI = new GUI();
+	
+	//The sheets of options
 	protected MainSheet mainSheet = new MainSheet(this);
+	protected ChangeOperationSheet changeOptSheet = new ChangeOperationSheet(this);
 	
 
 	//List of the projects
@@ -68,6 +71,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 		JTabbedPane options = new JTabbedPane();
 		options.add("Main options", mainSheet);
+		options.add("Change options", changeOptSheet);
 		
 		//Adding it all to the main GUI
 		getContentPane().add(projectsList);
