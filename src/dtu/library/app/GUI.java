@@ -75,7 +75,6 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		projectsList.add(infoPane);
 		listOfProjectsL.setSize(50,100);
 		projectsListAdditional.setSize(700, 150);
-		//informationLabel.setSize(100, 500);
 
 		JTabbedPane options = new JTabbedPane();
 		options.add("Main options", mainSheet);
@@ -356,17 +355,37 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			changeOptSheet.changeActivityConditionActivityF.setText("");
 			changeOptSheet.changeActivityConditionConditionF.setText("");
 		} else if (e.getSource() == adminOpt.makeNewWorkerB) {
-			//implement with the database
+			dataBase.addWorker(new Worker(adminOpt.makeNewWorkerF.getText()));
+			adminOpt.makeNewWorkerF.setText("");
+			
 		} else if (e.getSource() == adminOpt.changeToOtherWorkerB) {
 			Worker foundW = null;
-			//Needs database
+			for (int i = 0; i < dataBase.getWorkers().size(); i++) {
+				if (dataBase.getWorkers().get(i).getID().equals(adminOpt.changeToOtherWorkerF.getText())) {
+					foundW = dataBase.getWorkers().get(i);
+					break;
+				}
+			}
 			
+			if(foundW == null) {
+				informationLabel.append("No worker with that ID found \n");
+			} else {
+				worker = foundW;
+			}
+			
+			adminOpt.changeToOtherWorkerF.setText("");
+				
 		} else if (e.getSource() == adminOpt.listWorkersB) {
-			//Needs database
+			for (int i = 0; i < dataBase.getWorkers().size(); i++) {
+				informationLabel.append("Worker " + i + " : " + dataBase.getWorkers().get(i).getID() + " ");
+			}
+			informationLabel.append("\n");
 			
 		} else if (e.getSource() == adminOpt.listProjectsB) {
-			//Needs database
-			
+			for (int i = 0; i < dataBase.getProjects().size(); i++) {
+				informationLabel.append("Project " + i + " : " + dataBase.getProjects().get(i).getName() + " with ID: " + dataBase.getProjects().get(i).getID());
+			}
+			informationLabel.append("\n");
 		}
 	}
 
