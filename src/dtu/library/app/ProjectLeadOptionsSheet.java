@@ -69,6 +69,7 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		compActivityP.add(compActivityB);
 		compActivityP.add(compActAddP);
 		
+		this.setLayout(new GridLayout(5,1));
 		this.add(chooseProjP);
 		this.add(addWorkerP);
 		this.add(checkTimeP);
