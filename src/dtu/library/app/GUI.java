@@ -7,12 +7,8 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener{//Initialization of most parts of the GUI:
 	protected JTextArea informationLabel = new JTextArea();
-	protected JLabel listOfProjectsL = new JLabel("All current projects:");
 
 	protected JTextArea projectsListAdditional = new JTextArea();
-
-
-	protected static GUI gUI = new GUI();
 	
 	protected DataBase dataBase = new DataBase();
 
@@ -27,6 +23,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	
 	//The current worker
 	protected Worker worker = dataBase.getWorkers().get(0);
+	
+	protected JLabel listOfProjectsL = new JLabel("All current projects:");
+	protected JLabel currentWorkerID = new JLabel("Current worker: " + worker.getID());
 
 	public GUI() {
 		
@@ -67,7 +66,11 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		reDrawProjectList();
 
 		JScrollPane projectsListScroll = new JScrollPane(projectsListAdditional);
-		projectsList.add(listOfProjectsL);
+		JPanel scrollAdd = new JPanel();
+		scrollAdd.setLayout(new GridLayout(2,1));
+		scrollAdd.add(currentWorkerID);
+		scrollAdd.add(listOfProjectsL);
+		projectsList.add(scrollAdd);
 		projectsList.add(projectsListScroll);
 		projectsList.add(infoPane);
 		listOfProjectsL.setSize(50,100);
@@ -85,7 +88,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	}
 
 	public static void main(String[] args) {
-
+		GUI gUI = new GUI();
 		gUI.setTitle("Software project");
 		gUI.setSize(1000, 800);
 		gUI.setResizable(false);
@@ -366,6 +369,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				informationLabel.append("No worker with that ID found \n");
 			} else {
 				worker = foundW;
+				currentWorkerID.setText("Current worker: " + worker.getID());
 			}
 			
 			adminOpt.changeToOtherWorkerF.setText("");
