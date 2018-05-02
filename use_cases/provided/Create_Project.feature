@@ -40,7 +40,20 @@ And I add worker with ID "Liam" to project with name "Proj1"
 When I add worker with ID "Liam" to project with name "Proj1"
 Then I get the allready working on that error "That worker is already working on this project"
 
-# Scenario: create a project
-# Given that a worker is logged in 
-# When i create project with name "Proj1" and project leader "Brian"
-# Then the project with name "Proj1" and serial number "201801" and projektleader "Brian" is created  
+Scenario: remove yourself from project (as regular worker)
+Given that the worker with ID "Liam" logs in
+And the project leader with ID "Bria" and the workers with ID "Liam" and ID "Rasm" works on project with name "Proj1"
+When The worker with ID "Liam" removes the worker with ID "Liam"
+Then the worker "Liam" is no longer working on project "Proj1"
+
+Scenario: remove workers from project (as project leader)
+Given that the project leader "Bria" logs in
+And the project leader with ID "Bria" and the workers with ID "Liam" and ID "Rasm" works on project with name "Proj1"
+When The worker with ID "Bria" removes the worker with ID "Liam"
+Then the worker "Liam" is no longer working on project "Proj1"
+
+Scenario: remove worker from project (failure)
+Given that a worker is logged in
+And the project leader with ID "Bria" and the workers with ID "Liam" and ID "Rasm" works on project with name "Proj1"
+When The worker with ID "Rasm" removes the worker with ID "Liam"
+Then I get the cannot remove as non-project leader error "Must be either project leader or the worker to remove from project"

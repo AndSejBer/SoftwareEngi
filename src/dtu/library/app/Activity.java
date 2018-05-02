@@ -1,24 +1,36 @@
 package dtu.library.app;
 
-import java.time.Year;
+import java.time.LocalDate;
 
 public class Activity {
 
 	private String ID;
 	private String name;
+	private String description;
+	private String condition;
 	private double timeEstimate;
 	private double timeSpent = 0;
 	private Worker workers[] = new Worker[2];
 	private Project project;
 
 	public Activity(String name, double timeEstimate, Project project) {
+		ID ="" + LocalDate.now().getYear() + LocalDate.now().getMonthValue() + LocalDate.now().getDayOfMonth() + "-a" + project.getActivities().size();
 		this.name = name;
-		this.ID = "" + Year.now().getValue() + project.getActivities().size();
 		this.timeEstimate = timeEstimate;
 		this.project = project;
 	}
+	
+	public Activity(String name, double timeEstimate, Project project, String description, String condition) {
+		if(!(name==null)||!(timeEstimate==0.0)||!(description==null)||!(condition==null)) {
+			this.name = name;
+			this.timeEstimate = timeEstimate;
+			this.project = project;
+			this.description = description;
+			this.condition = condition;
+		}
+	}
 
-	public Activity(double timeEstimate, Project project) throws Exception {
+	public Activity(int timeEstimate, Project project) throws Exception {
 		throw new OperationNotAllowedException("Name is required for an activity");
 	}
 
@@ -26,18 +38,26 @@ public class Activity {
 		throw new OperationNotAllowedException("Time estimate is required for an activity");
 	}
 
+	public String getID() {
+		return ID;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public double getTimeEstimate() {
 		return timeEstimate;
 	}
-
 	public double gettimeSpent() {
 		return timeSpent;
 	}
+	public String getDescription() {
+		return description;
+	}
 
+	public String getCondition() {
+		return condition;
+	}
+	
 	public void addTimeSpent(double workedfrom, double workedtoo) throws Exception {
 		if (workedtoo - workedfrom <= 0) {
 			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
@@ -53,18 +73,17 @@ public class Activity {
 				|| ((!(iD.equals(workers[0].getID()))))
 				&& ((workers[1] == null) || (!(iD.equals(workers[1].getID()))))) {
 			throw new OperationNotAllowedException("Must be assigned to activity to add time");
-
 		} else {
 			timeSpent += (time);
 		}
 	}
 
-	public void addWorker(Worker worker) throws Exception {
+	public void addWorker(Worker worker) throws Exception{
 		if (workers[0] == null) {
 			workers[0] = worker;
 		} else if (workers[1] == null && !(workers[0].getID().equals(worker.getID()))) {
 			workers[1] = worker;
-		} else if (!(workers[0].getID().equals(worker.getID()))) {
+		} else if (!(workers[0].getID().equals(worker.getID()))){
 			throw new OperationNotAllowedException("Can only have two workers on an activity");
 		} else {
 			throw new OperationNotAllowedException("Worker already working on activity");
@@ -83,42 +102,75 @@ public class Activity {
 				if (project.getWorkers().get(i).getID().equals(iD)) {
 					addWorker(project.getWorkers().get(i));
 					return;
-				}
+				} 
 			}
 			throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
 		}
 	}
 
-	public void removeWorker(Worker developer, String iD) throws Exception {
-		if (project.getProjectLeader().equals(developer) || developer.getID().equals(iD)) {
-			if (!(workers[0] == null) && workers[0].getID().equals(iD)) {
+	public void removeWorker(Worker developer, String iD) throws Exception{
+		if(project.getProjectLeader().equals(developer) || developer.getID().equals(iD)) {
+			if ( !(workers[0]==null) && workers[0].getID().equals(iD)) {
 				workers[0] = null;
 				if (workers[1] != null) {
-					workers[0] = workers[1];
+					workers[0] = workers [1];
 					workers[1] = null;
 				}
-			} else if (!(workers[1] == null) && workers[1].getID().equals(iD)) {
+			} else if(!(workers[1]==null) && workers[1].getID().equals(iD)) {
 				workers[1] = null;
 			} else {
 				throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
 			}
 		} else {
-			throw new OperationNotAllowedException(
-					"Must be either project leader or the worker to remove from activity");
+			throw new OperationNotAllowedException("Must be either project leader or the worker to remove from activity");
 		}
 	}
-
-	public void changeActivity(Worker developer, String iD, String changeWhat, String change) throws Exception {
-		if (project.getProjectLeader().equals(developer) || developer.getID().equals(iD)) {
-			// Depending on changeWhat, the activity will be changed accordingly (such as
-			// activity name)
-			if (changeWhat.equals("changeName")) {
-				name = change;
-			} else if (changeWhat.equals("changeTimeEstimate")) {
-				timeEstimate = Integer.parseInt(change);
-			} // If there's other stuff like description, conditions etc. Add after this
+	
+	
+	public void changeActivityName(Worker developer, String name) throws Exception{
+		if(project.getProjectLeader().equals(developer)) {
+			if (name!=null) {
+				this.name = name;
+			} else {
+				throw new OperationNotAllowedException("Name is required for an activity");
+			}
 		} else {
 			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
 		}
 	}
+	public void changeActivityTime(Worker developer, double time) throws Exception{
+		if(project.getProjectLeader().equals(developer)) {
+			if (time >= 0) {
+				timeEstimate = time;
+			} else {
+				throw new OperationNotAllowedException("Time-estimate cannot be 0 hours");
+			}
+		} else {
+			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
+		}
+	}
+	public void changeActivityDescription(Worker developer, String description) throws Exception{
+		if(project.getProjectLeader().equals(developer)) {
+			if (!description.equals(null)) {
+				this.description = description;
+			} else {
+				//do nothing
+			}
+		} else {
+			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
+		}
+	}
+	public void changeActivityCondition(Worker developer, String condition) throws Exception{
+		if(project.getProjectLeader().equals(developer)) {
+			if (!condition.equals(null)) {
+				this.condition = condition;
+			} else {
+				//do nothing
+			}
+		} else {
+			throw new OperationNotAllowedException("Must be project leader to make changes to activity");
+		}
+	}
+	
 }
+

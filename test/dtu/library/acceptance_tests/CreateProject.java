@@ -78,5 +78,59 @@ public class CreateProject {
 		assertTrue(errmsg.equals(error));
 	}
 
+	@Given("^that the worker with ID \"([^\"]*)\" logs in$")
+	public void thatTheWorkerWithIDLogsIn(String name) throws Exception {
+		workers.add(new Worker(name));
+	}
+	
+	@Given("^that the project leader \"([^\"]*)\" logs in$")
+	public void thatTheProjectLeaderLogsIn(String name) throws Exception {
+		workers.add(new Worker(name));
+	}
+	
+	@And("^the project leader with ID \"([^\"]*)\" and the workers with ID \"([^\"]*)\" and ID \"([^\"]*)\" works on project with name \"([^\"]*)\"$")
+	public void thatTheWorkersWithIDWorksOnProject(String bria, String liam, String rasm, String proj) throws Exception {
+		project = new Project(proj);
+		Worker Brian = new Worker(bria);
+		project.setProjectLeader(Brian, Brian);
+		Worker Liam = new Worker(liam);
+		Worker Rasmus = new Worker(rasm);
+		project.addWorker(Liam);
+		project.addWorker(Rasmus);
+	}
 
+	@When("^The worker with ID \"([^\"]*)\" removes the worker with ID \"([^\"]*)\"$")
+	public void IRemoveWorker(String remover, String removewho) throws Exception {
+		try {
+			Worker removeworker = null;
+			for(int i = 0; i < project.getWorkers().size();i++) {
+				if(project.getWorkers().get(i).getID().equals(remover)) {
+					removeworker = project.getWorkers().get(i);
+				} else if (project.getProjectLeader().getID().equals(remover)) {
+					removeworker = project.getProjectLeader();
+				}
+			}
+			if(!(removeworker==null)) {
+				project.removeWorker(removeworker, removewho);
+			}
+		} catch (Exception e2) {
+			errmsg = e2.getMessage();
+		}
+	}
+
+	@Then("^the worker \"([^\"]*)\" is no longer working on project \"([^\"]*)\"$")
+	public void theWorkerIsNoLongerWorkingOnProject(String name, String proj) {
+		boolean searchresult = true;
+		for(int i = 0; i < project.getWorkers().size(); i++) {
+			if (project.getWorkers().get(i).getID().equals(name)) {
+				searchresult = false;
+			}
+		}
+		assertTrue(searchresult==true);
+	}
+	
+	@Then("^I get the cannot remove as non-project leader error \"([^\"]*)\"$")
+	public void IGetTheCannotRemoveAsNonProjectLeaderError(String error) {
+		assertTrue(errmsg.equals(error));
+	}
 }
