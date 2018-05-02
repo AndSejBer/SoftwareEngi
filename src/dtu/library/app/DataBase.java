@@ -21,12 +21,15 @@ public class DataBase {
 		try {
 		project1.setProjectLeader(Sage,Sage);
 		project2.setProjectLeader(Jack,Jack);
+		
 		project1.addActivity(Sage, new Activity("Get coffee", 0.5, project1));
 		project1.addActivity(Sage, new Activity("Make features", 10, project1));
 		project1.addActivity(Sage, new Activity("Make tests", 8, project1));
 		project1.addActivity(Sage, new Activity("Make source code", 15, project1));
-		project2.addActivity(Sage, new Activity("Fix bugs", 2, project2));
-		project2.addActivity(Sage, new Activity("Eat cake", 1, project2));
+		
+		project2.addActivity(Jack, new Activity("Fix bugs", 2, project2));
+		project2.addActivity(Jack, new Activity("Eat cake", 1, project2));
+		
 		} catch (Exception asdf) {
 			
 		}

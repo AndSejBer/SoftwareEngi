@@ -13,6 +13,8 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 
 	protected static GUI gUI = new GUI();
+	
+	protected DataBase dataBase = new DataBase();
 
 	//The sheets of options
 	protected MainSheet mainSheet = new MainSheet(this);
@@ -20,14 +22,14 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	protected adminOptionsSheet adminOpt = new adminOptionsSheet();
 
 	//List of the projects
-	protected ArrayList<Project> allCurrentProjects = new ArrayList<Project>();
+	protected ArrayList<Project> allCurrentProjects = dataBase.getProjects();
 	protected ArrayList<JTextField> allCurrentProjectsList = new ArrayList<JTextField>();
 
-	//The current worker
-	protected Worker worker = new Worker("curr");
-
 	//List of available workers
-	protected ArrayList<Worker> availableWorkers= new ArrayList<Worker>();
+	protected ArrayList<Worker> availableWorkers= dataBase.getWorkers();
+	
+	//The current worker
+	protected Worker worker = availableWorkers.get(0);
 
 	public GUI() {
 		
@@ -65,13 +67,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		JPanel projectsList = new JPanel();
 		projectsList.setLayout(new GridLayout(3,1));
 
-		for (int i = 0; i < allCurrentProjects.size(); i++) {
-			projectsListAdditional.append(allCurrentProjects.get(i).getName() + " with ID: " + allCurrentProjects.get(i).getID() + "\n");
-			projectsListAdditional.append("With activities: \n");
-			for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
-				projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + "\n");
-			}
-		}
+		reDrawProjectList();
 
 		JScrollPane projectsListScroll = new JScrollPane(projectsListAdditional);
 		projectsList.add(listOfProjectsL);
