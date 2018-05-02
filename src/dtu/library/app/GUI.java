@@ -17,7 +17,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	//The sheets of options
 	protected MainSheet mainSheet = new MainSheet(this);
 	protected ChangeOperationSheet changeOptSheet = new ChangeOperationSheet(this);
-
+	protected adminOptionsSheet adminOpt = new adminOptionsSheet();
 
 	//List of the projects
 	protected ArrayList<Project> allCurrentProjects = new ArrayList<Project>();
@@ -30,6 +30,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	protected ArrayList<Worker> availableWorkers= new ArrayList<Worker>();
 
 	public GUI() {
+		
 		//Some setup log area etc.
 		informationLabel.setEditable(false);
 		informationLabel.setBackground(Color.LIGHT_GRAY);
@@ -54,6 +55,11 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		changeOptSheet.changeTimeEstimateB.addActionListener(this);
 		changeOptSheet.changeActivityDescriptionB.addActionListener(this);
 		changeOptSheet.changeActivityConditionB.addActionListener(this);
+		
+		adminOpt.makeNewWorkerB.addActionListener(this);
+		adminOpt.changeToOtherWorkerB.addActionListener(this);
+		adminOpt.listWorkersB.addActionListener(this);
+		adminOpt.listProjectsB.addActionListener(this);
 
 		//The list of all current projects is setup
 		JPanel projectsList = new JPanel();
@@ -78,6 +84,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		JTabbedPane options = new JTabbedPane();
 		options.add("Main options", mainSheet);
 		options.add("Change options", changeOptSheet);
+		options.add("DEV AND ADMIN", adminOpt);
 
 		//Adding it all to the main GUI
 		getContentPane().add(projectsList);
@@ -272,11 +279,94 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			changeOptSheet.changeActivityNameNameF.setText("");
 			
 		} else if (e.getSource() == changeOptSheet.changeTimeEstimateB) {
+			Activity currentA = null;
+
+			for (int i = 0; i < allCurrentProjects.size(); i++) {
+				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
+					if (allCurrentProjects.get(i).getActivities().get(j).getName().equals(changeOptSheet.changeTimeEstimateActivityF.getText())) {
+						currentA = allCurrentProjects.get(i).getActivities().get(j);
+						i = allCurrentProjects.size();
+						break;
+					}
+				}
+			}
+			
+			try {
+				currentA.changeActivityTime(worker, Double.parseDouble(changeOptSheet.changeTimeEstimateTimeEstimateF.getText()));
+				informationLabel.append("Succesfully updated the time estimate on the activity \n");
+			} catch (Exception error) {
+				informationLabel.append(error.getStackTrace().toString());
+				if (currentA == null) {
+					informationLabel.append("No activity found with name: " + changeOptSheet.changeTimeEstimateActivityF.getText() + "\n");
+				} else {
+					informationLabel.append(error.getMessage() + "\n");
+				}
+			}
+			
+			reDrawProjectList();
+			
+			changeOptSheet.changeTimeEstimateActivityF.setText("");
+			changeOptSheet.changeTimeEstimateTimeEstimateF.setText("");
 
 		} else if(e.getSource() == changeOptSheet.changeActivityDescriptionB) {
+			Activity currentA = null;
 
+			for (int i = 0; i < allCurrentProjects.size(); i++) {
+				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
+					if (allCurrentProjects.get(i).getActivities().get(j).getName().equals(changeOptSheet.changeActivityDescriptionActivityF.getText())) {
+						currentA = allCurrentProjects.get(i).getActivities().get(j);
+						break;
+					}
+				}
+			}
+			
+			try {
+				currentA.changeActivityDescription(worker, changeOptSheet.changeActivityDescriptionDescriptionF.getText());
+				informationLabel.append("Succesfully updated the description for the activity \n");
+			} catch (Exception error) {
+				if (currentA == null) {
+					informationLabel.append("No activity found with name: " + changeOptSheet.changeActivityDescriptionActivityF.getText() + "\n");
+				} else {
+					informationLabel.append(error.getMessage() + "\n");
+				}
+			}
+			
+			changeOptSheet.changeActivityDescriptionActivityF.setText("");
+			changeOptSheet.changeActivityDescriptionDescriptionF.setText("");
+			
 		} else if (e.getSource() == changeOptSheet.changeActivityConditionB) {
+			Activity currentA = null;
 
+			for (int i = 0; i < allCurrentProjects.size(); i++) {
+				for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
+					if (allCurrentProjects.get(i).getActivities().get(j).getName().equals(changeOptSheet.changeActivityConditionActivityF.getText())) {
+						currentA = allCurrentProjects.get(i).getActivities().get(j);
+						break;
+					}
+				}
+			}
+			
+			try {
+				currentA.changeActivityCondition(worker, changeOptSheet.changeActivityConditionConditionF.getText());
+				informationLabel.append("Succesfully change the condition for the activity \n");
+			} catch (Exception error) {
+				if (currentA == null) {
+					informationLabel.append("No activity found with name: " + changeOptSheet.changeActivityDescriptionActivityF.getText() + "\n");
+				} else {
+					informationLabel.append(error.getMessage() + "\n");
+				}
+			}
+			
+			changeOptSheet.changeActivityConditionActivityF.setText("");
+			changeOptSheet.changeActivityConditionConditionF.setText("");
+		} else if (e.getSource() == adminOpt.makeNewWorkerB) {
+			
+		} else if (e.getSource() == adminOpt.changeToOtherWorkerB) {
+			
+		} else if (e.getSource() == adminOpt.listWorkersB) {
+			
+		} else if (e.getSource() == adminOpt.listProjectsB) {
+			
 		}
 	}
 

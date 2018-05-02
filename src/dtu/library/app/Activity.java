@@ -141,8 +141,7 @@ public class Activity {
 	}
 	public void changeActivityTime(Worker developer, double time) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
-			Double timecheck = time;
-			if (!timecheck.equals(0.0)) {
+			if (time >= 0) {
 				timeEstimate = time;
 			} else {
 				throw new OperationNotAllowedException("Time-estimate cannot be 0 hours");
