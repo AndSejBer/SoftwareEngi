@@ -360,12 +360,16 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			changeOptSheet.changeActivityConditionActivityF.setText("");
 			changeOptSheet.changeActivityConditionConditionF.setText("");
 		} else if (e.getSource() == adminOpt.makeNewWorkerB) {
-			
+			//implement with the database
 		} else if (e.getSource() == adminOpt.changeToOtherWorkerB) {
+			Worker foundW = null;
+			//Needs database
 			
 		} else if (e.getSource() == adminOpt.listWorkersB) {
+			//Needs database
 			
 		} else if (e.getSource() == adminOpt.listProjectsB) {
+			//Needs database
 			
 		}
 	}
