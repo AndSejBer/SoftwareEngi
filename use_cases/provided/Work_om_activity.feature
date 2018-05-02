@@ -12,52 +12,54 @@ Scenario: Worker takes an activity and adds time once
 	Given that I have a Worker "abc1" 
 	And I have an activity with name "Act1" and time-estimate "10" 
 	And Worker "abc1" takes activity "Act1" 
-	When I work on the activity and add the time used: "5" 
+	When Worker "abc1" works on the activity and add the time used: "5" 
 	Then The activity has accumulated "5" amount of time 
 	
 Scenario: Worker works on an not assigned activity and adds time once 
 	Given that I have a Worker "abc1" 
 	And I have an activity with name "Act1" and time-estimate "10" 
-	When I work on the activity and add the time used: "5" 
+	When Worker "abc1" works on the activity and add the time used: "3" 
 	Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time" 
 	
 	
 Scenario: Worker works two times on an activity 
 	Given that I have a Worker "abc1" 
-	And I have an activity with name "Act1" and time-estimate "10"
-	And Worker "abc1" takes activity "Act1"
-	And I work on the activity and add the time used: "5" 
-	When I work on the activity and add the time used: "3" 
-	Then The activity has accumulated "8" amount of time 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Act1" 
+	And Worker "abc1" works on the activity and add the time used: "6" 
+	When Worker "abc1" works on the activity and add the time used: "4" 
+	Then The activity has accumulated "10" amount of time 
 	
-	Scenario: Worker adds other worker to help
-	Given that I have a Worker "abc1"
-	And I have an activity with name "Act1" and time-estimate "10"
-	And Worker "abc1" takes activity "Act1"
-	And that I have a Worker "abc2"
-	When Worker "abc2" takes activity "Act1"
-	Then Worker "abc1" and Worker "abc2" is working on activity "Act1"
+Scenario: Worker adds other worker to help 
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Act1" 
+	And that I have a Worker "abc2" 
+	When Worker "abc2" takes activity "Act1" 
+	Then Worker "abc1" and Worker "abc2" is working on activity "Act1" 
 	
-	##Scenario: Worker gets help from another worker
-	##Given that I have a Worker "abc1"
-	##And Worker "abc1" takes activity ""
-	##And I have a Worker "abc2"
-	##And I add Worker "abc2" to help on activity 
-	##And I have an activity with name "" and time-estimate ""
-	##And Worker "abc1" works on an activity "" and add the time used: ""
-	##When Worker "abc2" works on an activity "" and add the time used: ""
-	##Then The activity has accumulated "" amount of time
+Scenario: Worker gets help from another worker 
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Atc1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Atc1" 
+	And Worker "abc1" works on the activity and add the time used: "3" 
+	And that I have a Worker "abc2" 
+	And Worker "abc2" takes activity "Atc1" 
+	When Worker "abc2" works on the activity and add the time used: "2" 
+	Then The activity has accumulated "5" amount of time 
 	
-	##Scenario: Worker gets help from another worker not assigned to help
-	#	#Given that I have a Worker "abc1"
-	#	#And Worker "abc1" takes activity ""
-	#	#And I have a Worker "abc2"
-	# 	#And I have an activity with name "" and time-estimate ""
-	# 	#And Worker "abc1" works on an activity "" and add the time used: ""
-	# 	#When Worker "abc2" works on an activity "" and add the time used: ""
-	# 	#Then I get the error "Must be assigned to activity to add time"
-	# 	
-	#Scenario: Worker works on an non existing activity and adds time once
-	# 	Given that I have a Worker "abc1"
-	#	When I work on the activity and add the time used: "123"
-	#	Then I get the Activity must exist before time can be added error "Activity must exist before time can be added"
+Scenario: Worker gets help from another worker not assigned to help 
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Atc1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Atc1" 
+	And that I have a Worker "abc2" 
+	And Worker "abc1" works on the activity and add the time used: "1" 
+	When Worker "abc2" works on the activity and add the time used: "3" 
+	Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time" 
+		
+#Scenario: Worker assign to a non existing activity
+#	Given that I have a Worker "abc1"
+#	When Worker "abc1" takes activity "Atc1"
+#	Then I get the Activity must exist to assign error "Activity must exist to assign" 
+	
+	
