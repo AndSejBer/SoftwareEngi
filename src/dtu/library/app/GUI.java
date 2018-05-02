@@ -24,12 +24,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	//List of the projects
 	protected ArrayList<Project> allCurrentProjects = dataBase.getProjects();
 	protected ArrayList<JTextField> allCurrentProjectsList = new ArrayList<JTextField>();
-
-	//List of available workers
-	protected ArrayList<Worker> availableWorkers= dataBase.getWorkers();
 	
 	//The current worker
-	protected Worker worker = availableWorkers.get(0);
+	protected Worker worker = dataBase.getWorkers().get(0);
 
 	public GUI() {
 		
@@ -85,8 +82,6 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		getContentPane().add(projectsList);
 		getContentPane().add(options);
 
-		//A bit of setup
-		availableWorkers.add(worker);
 	}
 
 	public static void main(String[] args) {
@@ -223,9 +218,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				}
 			}
 
-			for (int i = 0; i < availableWorkers.size(); i++) {
-				if (availableWorkers.get(i).getID().equals(changeOptSheet.setProjectLeadWorkerF.getText())) {
-					currentW = availableWorkers.get(i);
+			for (int i = 0; i < dataBase.getWorkers().size(); i++) {
+				if (dataBase.getWorkers().get(i).getID().equals(changeOptSheet.setProjectLeadWorkerF.getText())) {
+					currentW = dataBase.getWorkers().get(i);
 				}
 			}
 
@@ -390,9 +385,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	}
 
 	private Worker findWorker(String iD) throws Exception {
-		for (int i = 0; i < availableWorkers.size(); i++) {
-			if (availableWorkers.get(i).getID().equals(iD)) {
-				return availableWorkers.get(i);
+		for (int i = 0; i < dataBase.getWorkers().size(); i++) {
+			if (dataBase.getWorkers().get(i).getID().equals(iD)) {
+				return dataBase.getWorkers().get(i);
 			}
 		}
 		throw new OperationNotAllowedException("Cannot find worker with iD: " + iD);
