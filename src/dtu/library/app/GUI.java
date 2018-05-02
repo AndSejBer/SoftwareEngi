@@ -16,6 +16,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	protected MainSheet mainSheet = new MainSheet(this);
 	protected ChangeOperationSheet changeOptSheet = new ChangeOperationSheet(this);
 	protected adminOptionsSheet adminOpt = new adminOptionsSheet();
+	protected ProjectLeadOptionsSheet projLeadOpt = new ProjectLeadOptionsSheet();
 
 	//List of the projects
 	protected ArrayList<Project> allCurrentProjects = dataBase.getProjects();
@@ -54,6 +55,12 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		changeOptSheet.changeActivityDescriptionB.addActionListener(this);
 		changeOptSheet.changeActivityConditionB.addActionListener(this);
 		
+		projLeadOpt.chooseProjB.addActionListener(this);
+		projLeadOpt.addWorkerB.addActionListener(this);
+		projLeadOpt.checkTimeB.addActionListener(this);
+		projLeadOpt.removeWorkerB.addActionListener(this);
+		projLeadOpt.compActivityB.addActionListener(this);
+		
 		adminOpt.makeNewWorkerB.addActionListener(this);
 		adminOpt.changeToOtherWorkerB.addActionListener(this);
 		adminOpt.listWorkersB.addActionListener(this);
@@ -79,6 +86,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		JTabbedPane options = new JTabbedPane();
 		options.add("Main options", mainSheet);
 		options.add("Change options", changeOptSheet);
+		options.add("Project lead options", projLeadOpt);
 		options.add("DEV AND ADMIN", adminOpt);
 
 		//Adding it all to the main GUI
@@ -385,6 +393,16 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				informationLabel.append("Project " + i + " : " + dataBase.getProjects().get(i).getName() + " with ID: " + dataBase.getProjects().get(i).getID());
 			}
 			informationLabel.append("\n");
+		} else if ( e.getSource() == projLeadOpt.chooseProjB) {
+			
+		} else if (e.getSource() == projLeadOpt.addWorkerB) {
+			
+		} else if (e.getSource() == projLeadOpt.checkTimeB) {
+			
+		} else if (e.getSource() == projLeadOpt.removeWorkerB) {
+			
+		} else if (e.getSource() == projLeadOpt.compActivityB) {
+			
 		}
 	}
 
