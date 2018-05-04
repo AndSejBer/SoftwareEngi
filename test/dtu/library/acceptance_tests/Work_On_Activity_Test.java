@@ -51,10 +51,10 @@ public class Work_On_Activity_Test {
 
 	}
 
-	@When("^I work on the activity and add the time used: \"([^\"]*)\"$")
-	public void IWorkOnTheActivityAndAddTheTimeUsed(double tid) throws Exception {
+	@When("^Worker \"([^\"]*)\" works on the activity and add the time used: \"([^\"]*)\"$")
+	public void IWorkOnTheActivityAndAddTheTimeUsed(String iD, double tid) throws Exception {
 		try {
-			project.getActivities().get(0).addTimeSpent(tid, workers.get(1));
+			project.getActivities().get(0).addTimeSpent(tid, iD);
 		} catch (Exception e) {
 			errmsg = e.getMessage();
 		}
@@ -67,6 +67,11 @@ public class Work_On_Activity_Test {
 
 	@Then("^I get the Must be assigned to activity to add time error \"([^\"]*)\"$")
 	public void IGetTheMustBeAssignedToActivityToAddTimeerror(String arg1) throws Exception {
+		assertTrue(errmsg.equals(arg1));
+	}
+	
+	@Then("^I get the Activity must exist to assign error \"([^\"]*)\"$")
+	public void IgettheActivitymustexisttoassigerror(String arg1) throws Exception {
 		assertTrue(errmsg.equals(arg1));
 	}
 }
