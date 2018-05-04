@@ -5,7 +5,8 @@ import cucumber.api.java.en.*;
 import dtu.library.app.*;
 
 public class ChangeActivityTest {
-	private Project project;
+	
+	private DataBase database;
 	private Worker developer;
 	private String errmsg = "";
 
@@ -15,12 +16,13 @@ public class ChangeActivityTest {
 
 	@Given("^that i have a change project with name \"([^\"]*)\"$")
 	public void thatIHaveAChangeProjectWithName(String name) throws Exception {
-		project = new Project(name);
+		database = new DataBase("drdtr");
+		database.CreateProject(new Project (name, database));
 	}
 
 	@Given("^that the projectleader logs in$")
 	public void thatTheProjectleaderIsNowLoggedIn() throws Exception {
-		project.setProjectLeader(developer, developer);
+		database.getProjects().get(0).setProjectLeader(developer, developer);
 	}
 	
 	@Given("^that the projectleader logs out$")
@@ -30,29 +32,29 @@ public class ChangeActivityTest {
 
 	@Given("^the activity with name \"([^\"]*)\", time - estimate \"([^\"]*)\" , description \"([^\"]*)\", condition \"([^\"]*)\" and worker with ID \"([^\"]*)\" exists$")
 	public void theActivityWithNameTimeEstimateDescriptionConditionAndWorker(String name, double timeEstimate, String description, String condition, String WorkeriD) throws Exception {
-		project.setProjectLeader(developer, developer);
-		project.addActivity(developer, new Activity(name, timeEstimate, project, description, condition));
-		project.getActivities().get(0).addWorker(new Worker(WorkeriD));
+		database.getProjects().get(0).setProjectLeader(developer, developer);
+		database.getProjects().get(0).addActivity(developer, new Activity(name, timeEstimate, database.getProjects().get(0), description, condition));
+		database.getProjects().get(0).getActivities().get(0).addWorker(new Worker(WorkeriD));
 	}
 	
 	@Given("^the activity with name \"([^\"]*)\" and time - estimate \"([^\"]*)\" exists$")
 	public void theActivityWithNameTimeEstimate(String name, int timeEstimate) throws Exception {
-		project.setProjectLeader(developer, developer);
-		project.addActivity(developer, new Activity(name, timeEstimate, project));
+		database.getProjects().get(0).setProjectLeader(developer, developer);
+		database.getProjects().get(0).addActivity(developer, new Activity(name, timeEstimate, database.getProjects().get(0)));
 	}
 	
 	//starts here
 	@When("^i change the activity with ID \"([^\"]*)\" to have name \"([^\"]*)\"$")
 	public void iChangeTheNameOfActivity(String activityid, String name) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
-		project.getActivities().get(ProjectID).changeActivityName(developer, name);
+		database.getProjects().get(0).getActivities().get(ProjectID).changeActivityName(developer, name);
 	}
 
 	@Then("^the activity with ID \"([^\"]*)\" now has the name \"([^\"]*)\"$")
 	public void activityNameHasBeenChanged(String activityid, String name) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Boolean test = false;
-		if(project.getActivities().get(ProjectID).getName().equals(name)) {
+		if(database.getProjects().get(0).getActivities().get(ProjectID).getName().equals(name)) {
 			test = true;
 		}
 		assertTrue(test);
@@ -63,7 +65,7 @@ public class ChangeActivityTest {
 	public void iChangeActivityNameToBeNothing(String activityid) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		try {
-			project.getActivities().get(ProjectID).changeActivityName(developer, null);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityName(developer, null);
 		} catch(Exception e) {
 			errmsg = e.getMessage();
 		}
@@ -81,7 +83,7 @@ public class ChangeActivityTest {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Worker NotProjectLeader = new Worker("NotB");
 		try {
-			project.getActivities().get(ProjectID).changeActivityName(NotProjectLeader, name);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityName(NotProjectLeader, name);
 		} catch (Exception e1) {
 			errmsg = e1.getMessage();
 		}
@@ -96,7 +98,7 @@ public class ChangeActivityTest {
 	public void iChangeTheActivityToHaveTimeEstimate(String activityid, double time) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		try {
-			project.getActivities().get(ProjectID).changeActivityTime(developer, time);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityTime(developer, time);
 		} catch(Exception e2) {
 			errmsg = e2.getMessage();
 		}
@@ -106,7 +108,7 @@ public class ChangeActivityTest {
 	public void theActivityNowHasTimeEstimate(String activityid, double time) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Boolean test = false;
-		Double activitytime = project.getActivities().get(ProjectID).getTimeEstimate();
+		Double activitytime = database.getProjects().get(0).getActivities().get(ProjectID).getTimeEstimate();
 		Double timeestimate = time;
 		if(activitytime.equals(timeestimate)) {
 			test = true;
@@ -125,7 +127,7 @@ public class ChangeActivityTest {
 	public void iChangeTheActivityToHaveDescription(String activityid, String description) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		try {
-			project.getActivities().get(ProjectID).changeActivityDescription(developer, description);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityDescription(developer, description);
 		} catch(Exception e3) {
 			errmsg = e3.getMessage();
 		}
@@ -135,7 +137,7 @@ public class ChangeActivityTest {
 	public void theActivityNowHasDescription(String activityid, String description) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Boolean test = false;
-		if(project.getActivities().get(ProjectID).getDescription().equals(description)) {
+		if(database.getProjects().get(0).getActivities().get(ProjectID).getDescription().equals(description)) {
 			test = true;
 		}
 		assertTrue(test);
@@ -146,7 +148,7 @@ public class ChangeActivityTest {
 	public void iChangeTheActivityToHaveCondition(String activityid, String condition) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		try {
-			project.getActivities().get(ProjectID).changeActivityCondition(developer, condition);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityCondition(developer, condition);
 		} catch(Exception e3) {
 			errmsg = e3.getMessage();
 		}
@@ -156,7 +158,7 @@ public class ChangeActivityTest {
 	public void theActivityNowHasCondition(String activityid, String condition) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Boolean test = false;
-		if(project.getActivities().get(ProjectID).getCondition().equals(condition)) {
+		if(database.getProjects().get(0).getActivities().get(ProjectID).getCondition().equals(condition)) {
 			test = true;
 		}
 		assertTrue(test);
@@ -167,7 +169,7 @@ public class ChangeActivityTest {
 	public void iChangeTheActivityToHaveADescription(String activityid, String description) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		try {
-			project.getActivities().get(ProjectID).changeActivityDescription(developer,description);
+			database.getProjects().get(0).getActivities().get(ProjectID).changeActivityDescription(developer,description);
 		} catch(Exception e3) {
 			errmsg = e3.getMessage();
 		}
@@ -177,7 +179,7 @@ public class ChangeActivityTest {
 	public void theActivityNowHasADescription(String activityid, String description) throws Exception {
 		int ProjectID = Integer.parseInt(activityid.substring(activityid.length() - 1))-1;
 		Boolean test = false;
-		if(project.getActivities().get(ProjectID).getDescription().equals(description)) {
+		if(database.getProjects().get(0).getActivities().get(ProjectID).getDescription().equals(description)) {
 			test = true;
 		}
 		assertTrue(test);
