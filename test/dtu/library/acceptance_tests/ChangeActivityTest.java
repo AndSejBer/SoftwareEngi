@@ -17,7 +17,7 @@ public class ChangeActivityTest {
 	@Given("^that i have a change project with name \"([^\"]*)\"$")
 	public void thatIHaveAChangeProjectWithName(String name) throws Exception {
 		database = new DataBase("drdtr");
-		database.CreateProject(new Project (name, database));
+		new Project (name, database);
 	}
 
 	@Given("^that the projectleader logs in$")
