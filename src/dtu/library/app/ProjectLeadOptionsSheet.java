@@ -25,6 +25,8 @@ public class ProjectLeadOptionsSheet extends JPanel {
 	protected JLabel compActActL = new JLabel("Activity: ");
 	protected JTextField comActActF = new JTextField();
 	
+	protected Project selected = null;
+	
 	public ProjectLeadOptionsSheet() {
 		JPanel chooseProjP = new JPanel();
 		JPanel addWorkerP = new JPanel();
@@ -75,6 +77,10 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		this.add(checkTimeP);
 		this.add(removeWorkerP);
 		this.add(compActivityP);
+	}
+	
+	public void setProject(Project project) {
+		selected = project;
 	}
 	
 }

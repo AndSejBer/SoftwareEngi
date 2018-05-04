@@ -50,16 +50,16 @@ public class Project {
 		}
 		workers.add(worker);
 	}
-	
+
 	public void removeWorker(Worker developer, String iD) throws Exception{
 		if(projectLeader.equals(developer) || developer.getID().equals(iD)) {
 			for (int i = 0; i < workers.size(); i++) {
 				if ( !(workers.get(i)==null) && workers.get(i).getID().equals(iD)) {
 					workers.remove(i);
-				} else {
-					throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
+					return;
 				}
-			}			
+			}
+			throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
 		} else {
 			throw new OperationNotAllowedException("Must be either project leader or the worker to remove from project");
 		}

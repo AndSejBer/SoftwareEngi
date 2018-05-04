@@ -58,16 +58,12 @@ public class Activity {
 		return condition;
 	}
 	
-	public void addTimeSpent(double workedfrom, double workedtoo) throws Exception {
-		if (workedtoo - workedfrom <= 0) {
-			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
-		} else {
-			timeSpent += (workedtoo - workedfrom);
-		}
+	public void addTimeSpent(double workedfrom, double workedtoo, Worker worker) throws Exception {
+		addTimeSpent(workedtoo - workedfrom, worker.getID());
 	}
 
 	public void addTimeSpent(double time, String iD) throws Exception {
-		if (time <= 0) {
+		if (time < 0) {
 			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
 		} else if (((workers[0] == null) && (workers[1] == null))
 				|| ((!(iD.equals(workers[0].getID()))))
@@ -140,7 +136,7 @@ public class Activity {
 	}
 	public void changeActivityTime(Worker developer, double time) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
-			if (time >= 0) {
+			if (time > 0) {
 				timeEstimate = time;
 			} else {
 				throw new OperationNotAllowedException("Time-estimate cannot be 0 hours");
