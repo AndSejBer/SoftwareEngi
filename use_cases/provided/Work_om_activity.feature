@@ -14,13 +14,26 @@ Scenario: Worker takes an activity and adds time once
 	And Worker "abc1" takes activity "Act1" 
 	When Worker "abc1" works on the activity and add the time used: "5" 
 	Then The activity has accumulated "5" amount of time 
+
+Scenario: Worker takes an activity and adds time from and too
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Act1" 
+	When Worker "abc1" works on the activity and add the time from: "4" to "6"
+	Then The activity has accumulated "2" amount of time
+	
+Scenario: Worker takes an activity and adds negativ amout of time
+	Given that I have a Worker "abc1" 
+	And I have an activity with name "Act1" and time-estimate "10" 
+	And Worker "abc1" takes activity "Act1" 
+	When Worker "abc1" works on the activity and add the time from: "6" to "4"
+	Then I get the Can not work zero or negative amount of hours error "Can not work zero or negative amount of hours"
 	
 Scenario: Worker works on an not assigned activity and adds time once 
 	Given that I have a Worker "abc1" 
 	And I have an activity with name "Act1" and time-estimate "10" 
 	When Worker "abc1" works on the activity and add the time used: "3" 
 	Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time" 
-	
 	
 Scenario: Worker works two times on an activity 
 	Given that I have a Worker "abc1" 
@@ -56,10 +69,4 @@ Scenario: Worker gets help from another worker not assigned to help
 	And Worker "abc1" works on the activity and add the time used: "1" 
 	When Worker "abc2" works on the activity and add the time used: "3" 
 	Then I get the Must be assigned to activity to add time error "Must be assigned to activity to add time" 
-		
-#Scenario: Worker assign to a non existing activity
-#	Given that I have a Worker "abc1"
-#	When Worker "abc1" takes activity "Atc1"
-#	Then I get the Activity must exist to assign error "Activity must exist to assign" 
-	
 	

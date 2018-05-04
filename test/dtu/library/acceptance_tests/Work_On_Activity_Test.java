@@ -59,6 +59,20 @@ public class Work_On_Activity_Test {
 			errmsg = e.getMessage();
 		}
 	}
+	
+	@When("^Worker \"([^\"]*)\" works on the activity and add the time from: \"([^\"]*)\" to \"([^\"]*)\"$")
+	public void workerWorksOnTheActivityAndAddTheTimeFromTo(String worker, double from, double too) throws Exception {
+	    try {
+		project.getActivities().get(0).addTimeSpent(from, too, worker);
+	    } catch (Exception e) {
+	    	errmsg = e.getMessage();
+	    }
+	}
+	
+	@Then("^I get the Can not work zero or negative amount of hours error \"([^\"]*)\"$")
+	public void iGetTheCanNotWorkOrNegativeAmountOfHoursError(String arg1) throws Exception {
+		assertTrue(errmsg.equals(arg1));
+	}
 
 	@Then("^The activity has accumulated \"([^\"]*)\" amount of time$")
 	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {

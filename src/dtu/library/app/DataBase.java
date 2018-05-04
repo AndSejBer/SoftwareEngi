@@ -1,9 +1,7 @@
-package dtu.library.app;
+package dtu.library.app; 
 
 import java.util.ArrayList;
-
-
-//Andreas
+//lavet af Jesper Blak
 public class DataBase {
 
 	private ArrayList<Project> projectList = new ArrayList<Project>();
