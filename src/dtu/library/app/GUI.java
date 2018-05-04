@@ -107,7 +107,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mainSheet.startNewProjectB) {
 			if (mainSheet.newProjectNameF != null && !mainSheet.newProjectNameF.getText().equals("")) {
-				allCurrentProjects.add(new Project(mainSheet.newProjectNameF.getText()));
+				allCurrentProjects.add(new Project(mainSheet.newProjectNameF.getText(), dataBase));
 				projectsListAdditional.append(allCurrentProjects.get(allCurrentProjects.size()-1).getName() + " with ID: " + allCurrentProjects.get(allCurrentProjects.size()-1).getID() + "\n");
 				projectsListAdditional.append("With activities: \n");
 			} else {

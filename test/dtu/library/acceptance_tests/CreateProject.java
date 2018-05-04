@@ -9,7 +9,7 @@ import dtu.library.app.*;
 
 public class CreateProject {
 
-	private Project project;
+	private DataBase database;
 	private ArrayList <Worker> workers = new ArrayList<Worker>();
 	private String errmsg;
 
@@ -23,23 +23,24 @@ public class CreateProject {
 
 	@When("^I create project with name \"([^\"]*)\"$")
 	public void iCreateProjectWithName(String name) throws Exception {
-		project = new Project(name);
+		database = new DataBase("drdtr");
+		database.CreateProject(new Project (name, database));
 	}
 
 	@Then("^the projekt with name \"([^\"]*)\" and serial number \"([^\"]*)\" is created$")
 	public void theProjectWithNameAndSerialNumberIsCreated(String name, String iD) {
-		assertTrue(project.getName().equals(name) && project.getID().equals(iD));
+		assertTrue(database.getProjects().get(0).getName().equals(name) && database.getProjects().get(0).getID().equals(iD));
 	}
 
 	@When("^I set worker with ID \"([^\"]*)\" as project leader$")
 	public void iSetWorkerWithIDAsProjectLeader(String iD) throws Exception {
 		Worker Brian = new Worker (iD);
-		project.setProjectLeader(Brian, Brian);
+		database.getProjects().get(0).setProjectLeader(Brian, Brian);
 	}
 
 	@Then("^worker with ID \"([^\"]*)\" is project leader on project \"([^\"]*)\"$")
 	public void workerWithIDIsProjectLeaderOnProject(String iD, String name) throws Exception {
-		assertTrue(project.getProjectLeader().getID().equals(iD));
+		assertTrue(database.getProjects().get(0).getProjectLeader().getID().equals(iD));
 	}
 
 	@When("^worker \"([^\"]*)\" sets worker \"([^\"]*)\" as project leader$")
@@ -47,7 +48,7 @@ public class CreateProject {
 		try {
 			Worker Brian = new Worker(iD1);
 			Worker Rasmus = new Worker(iD2);
-			project.setProjectLeader(Brian, Rasmus);
+			database.getProjects().get(0).setProjectLeader(Brian, Rasmus);
 		} catch (Exception e) {
 			errmsg = e.getMessage();
 		}
@@ -62,7 +63,7 @@ public class CreateProject {
 	public void iAddWorkerWithIDToProjectWithName(String iD, String name) throws Exception {
 		try {
 			Worker Rasmus = new Worker(iD);
-			project.addWorker(Rasmus);
+			database.getProjects().get(0).addWorker(Rasmus);
 		} catch (Exception e1) {
 			errmsg = e1.getMessage();
 		}
@@ -70,7 +71,7 @@ public class CreateProject {
 
 	@Then("^worker \"([^\"]*)\" is working on project \"([^\"]*)\"$")
 	public void workerIsWorkingOnProject(String iD, String name) throws Exception {
-		assertTrue(project.getWorkers().get(0).getID().equals(iD));
+		assertTrue(database.getProjects().get(0).getWorkers().get(0).getID().equals(iD));
 	}
 
 	@Then("^I get the allready working on that error \"([^\"]*)\"$")
@@ -90,28 +91,30 @@ public class CreateProject {
 	
 	@And("^the project leader with ID \"([^\"]*)\" and the workers with ID \"([^\"]*)\" and ID \"([^\"]*)\" works on project with name \"([^\"]*)\"$")
 	public void thatTheWorkersWithIDWorksOnProject(String bria, String liam, String rasm, String proj) throws Exception {
-		project = new Project(proj);
+		database = new DataBase("drdtr");
+		database.CreateProject(new Project(proj, database));
+		//project = new Project(proj);
 		Worker Brian = new Worker(bria);
-		project.setProjectLeader(Brian, Brian);
+		database.getProjects().get(0).setProjectLeader(Brian, Brian);
 		Worker Liam = new Worker(liam);
 		Worker Rasmus = new Worker(rasm);
-		project.addWorker(Liam);
-		project.addWorker(Rasmus);
+		database.getProjects().get(0).addWorker(Liam);
+		database.getProjects().get(0).addWorker(Rasmus);
 	}
 
 	@When("^The worker with ID \"([^\"]*)\" removes the worker with ID \"([^\"]*)\"$")
 	public void IRemoveWorker(String remover, String removewho) throws Exception {
 		try {
 			Worker removeworker = null;
-			for(int i = 0; i < project.getWorkers().size();i++) {
-				if(project.getWorkers().get(i).getID().equals(remover)) {
-					removeworker = project.getWorkers().get(i);
-				} else if (project.getProjectLeader().getID().equals(remover)) {
-					removeworker = project.getProjectLeader();
+			for(int i = 0; i < database.getProjects().get(0).getWorkers().size();i++) {
+				if(database.getProjects().get(0).getWorkers().get(i).getID().equals(remover)) {
+					removeworker = database.getProjects().get(0).getWorkers().get(i);
+				} else if (database.getProjects().get(0).getProjectLeader().getID().equals(remover)) {
+					removeworker = database.getProjects().get(0).getProjectLeader();
 				}
 			}
 			if(!(removeworker==null)) {
-				project.removeWorker(removeworker, removewho);
+				database.getProjects().get(0).removeWorker(removeworker, removewho);
 			}
 		} catch (Exception e2) {
 			errmsg = e2.getMessage();
@@ -121,8 +124,8 @@ public class CreateProject {
 	@Then("^the worker \"([^\"]*)\" is no longer working on project \"([^\"]*)\"$")
 	public void theWorkerIsNoLongerWorkingOnProject(String name, String proj) {
 		boolean searchresult = true;
-		for(int i = 0; i < project.getWorkers().size(); i++) {
-			if (project.getWorkers().get(i).getID().equals(name)) {
+		for(int i = 0; i < database.getProjects().get(0).getWorkers().size(); i++) {
+			if (database.getProjects().get(0).getWorkers().get(i).getID().equals(name)) {
 				searchresult = false;
 			}
 		}

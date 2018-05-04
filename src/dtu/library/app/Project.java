@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Project {
 
+	private DataBase database;
 	private String name,iD;
 	private Worker projectLeader;
 	private ArrayList <Activity> activities = new ArrayList <Activity>();
@@ -12,9 +13,19 @@ public class Project {
 
 	//Andreas
 	//Running number should be corrected
-	public Project(String name) {
+	
+	//Anders
+	public Project(String name, DataBase database) {
+		this.database = database;
 		this.name = name;
-		iD="" + Year.now().getValue() + "01";
+		String iDNumber;
+		if (database.getProjects().size()<10) {
+			iDNumber = "0"+(database.getProjects().size()+1);
+		} else {
+			iDNumber = ""+(database.getProjects().size()+1);
+		}	
+		iD="" + Year.now().getValue() + iDNumber;
+		database.CreateProject(this);
 	}
 
 	//Andreas

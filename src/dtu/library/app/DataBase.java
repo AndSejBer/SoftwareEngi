@@ -9,6 +9,9 @@ public class DataBase {
 	private ArrayList<Project> projectList = new ArrayList<Project>();
 	private ArrayList<Worker> workerList = new ArrayList<Worker>();
 	
+	public DataBase(String test) {
+		
+	}
 	
 	public DataBase() {
 		Worker Sage= new Worker("Sage");
@@ -16,8 +19,8 @@ public class DataBase {
 		Worker Abel= new Worker("Abel");
 		Worker Jack= new Worker("Jack");
 		Worker Elsa= new Worker("Elsa");
-		Project project1 = new Project("Create software project");
-		Project project2 = new Project("fix bugs");
+		Project project1 = new Project("Create software project", this);
+		Project project2 = new Project("fix bugs", this);
 		addWorker(Sage);
 		addWorker(Otto);
 		try {
@@ -40,8 +43,6 @@ public class DataBase {
 		workerList.add(Abel);
 		workerList.add(Jack);
 		workerList.add(Elsa);
-		projectList.add(project1);
-		projectList.add(project2);
 	}
 
 	public void addWorker(Worker worker) {
