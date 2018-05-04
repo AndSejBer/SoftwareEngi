@@ -20,6 +20,7 @@ public class DataBase {
 		Project project2 = new Project("fix bugs");
 		addWorker(Sage);
 		addWorker(Otto);
+		
 		try {
 		project1.setProjectLeader(Sage,Sage);
 		project2.setProjectLeader(Jack,Jack);
@@ -35,11 +36,12 @@ public class DataBase {
 		} catch (Exception asdf) {
 			
 		}
+		
 		workerList.add(Sage);
 		workerList.add(Otto);
 		workerList.add(Abel);
 		workerList.add(Jack);
-		workerList.add(Elsa);
+		workerList.add(Elsa);  
 		projectList.add(project1);
 		projectList.add(project2);
 	}
