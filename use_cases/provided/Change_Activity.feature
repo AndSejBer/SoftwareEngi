@@ -33,15 +33,30 @@ Given that the projectleader logs in
 When i change the activity with ID "20170429a1" to have time - estimate "0"  
 Then I get the 0 time-estimate error message "Time-estimate cannot be 0 hours"   
 
+Scenario: Change the time of an activity when project leader not logged in
+Given that the projectleader logs out
+When i change the activity with ID "20170429a1" to have time - estimate "10"  
+Then I get the change activity project leader error message "Must be project leader to make changes to activity" 
+
 Scenario: Change the description of an activity 
 Given that the projectleader logs in
 When I change the activity with ID "20171303a1" to have description "Designing the Add poster"  
 Then the activity with ID "20171303a1" now has the description "Designing the Add poster"  
 
+Scenario: Change the description of an activity when project leader not logged in
+Given that the projectleader logs out
+When I change the activity with ID "20171303a1" to have description "Designing the Add poster"  
+Then I get the change activity project leader error message "Must be project leader to make changes to activity" 
+
 Scenario: Change the conditions of an activity 
 Given that the projectleader logs in
 When I change the activity with ID "20171303a1" to have conditions "Satisfactory and well made Add"  
 Then the activity with ID "20171303a1" now has the conditions "Satisfactory and well made Add"  
+
+Scenario: Change the conditions of an activity when project leader not logged in
+Given that the projectleader logs out
+When I change the activity with ID "20171303a1" to have conditions "Satisfactory and well made Add" 
+Then I get the change activity project leader error message "Must be project leader to make changes to activity" 
 		
 Scenario: Change a blank conditions of an activity
 Given that the projectleader logs in
