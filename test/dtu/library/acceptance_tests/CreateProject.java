@@ -133,4 +133,9 @@ public class CreateProject {
 	public void IGetTheCannotRemoveAsNonProjectLeaderError(String error) {
 		assertTrue(errmsg.equals(error));
 	}
+	
+		@Then("^I get the no worker error \"([^\"]*)\"$")
+	public void IGetNoWorkerWithIDError(String error) {
+		assertTrue(errmsg.equals(error));
+	}
 }
