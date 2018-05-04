@@ -50,7 +50,7 @@ public class Activity {
 	//Andreas
 	public void addTimeSpent(double time, String iD) throws Exception {
 		if (time < 0) {
-			throw new OperationNotAllowedException("Can not work 0 or negative amount of hours");
+			throw new OperationNotAllowedException("Can not work zero or negative amount of hours");
 		} else if (((workers[0] == null) && (workers[1] == null))
 				|| ((!(iD.equals(workers[0].getID()))))
 				&& ((workers[1] == null) || (!(iD.equals(workers[1].getID()))))) {
@@ -184,7 +184,5 @@ public class Activity {
 	public String getCondition() {
 		return condition;
 	}
-
-	
 }
 

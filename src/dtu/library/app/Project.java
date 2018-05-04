@@ -74,10 +74,11 @@ public class Project {
 			for (int i = 0; i < workers.size(); i++) {
 				if ( !(workers.get(i)==null) && workers.get(i).getID().equals(iD)) {
 					workers.remove(i);
-					return;
-				}
-			}
-			throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
+
+				} else {
+					throw new OperationNotAllowedException("The worker you wanted to remove doesn't work on the project");
+        }
+      }
 		} else {
 			throw new OperationNotAllowedException("Must be either project leader or the worker to remove from project");
 		}

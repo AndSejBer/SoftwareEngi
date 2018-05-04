@@ -136,6 +136,7 @@ public class CreateProject {
 	public void IGetTheCannotRemoveAsNonProjectLeaderError(String error) {
 		assertTrue(errmsg.equals(error));
 	}
+
 	@Given("^that i make (\\d+) projects$")
 	public void thatIMakeProjects(int arg1) throws Exception {
 		database = new DataBase("drdtr");
@@ -146,5 +147,10 @@ public class CreateProject {
 	@Then("^the last project has ID \"([^\"]*)\"$")
 	public void theLastProjectHasID(String arg1) throws Exception {
 		assertTrue(database.getProjects().get(11).getID().equals(arg1));
+	}
+	
+	@Then("^I get the no worker error \"([^\"]*)\"$")
+	public void IGetNoWorkerWithIDError(String error) {
+		assertTrue(errmsg.equals(error));
 	}
 }

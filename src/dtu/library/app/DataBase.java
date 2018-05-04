@@ -1,9 +1,7 @@
-package dtu.library.app;
+package dtu.library.app; 
 
 import java.util.ArrayList;
-
-
-//Andreas
+//lavet af Jesper Blak
 public class DataBase {
 
 	private ArrayList<Project> projectList = new ArrayList<Project>();
@@ -23,6 +21,7 @@ public class DataBase {
 		Project project2 = new Project("fix bugs", this);
 		addWorker(Sage);
 		addWorker(Otto);
+		
 		try {
 		project1.setProjectLeader(Sage,Sage);
 		project2.setProjectLeader(Jack,Jack);
@@ -38,11 +37,13 @@ public class DataBase {
 		} catch (Exception asdf) {
 			
 		}
+		
 		workerList.add(Sage);
 		workerList.add(Otto);
 		workerList.add(Abel);
 		workerList.add(Jack);
 		workerList.add(Elsa);
+
 	}
 
 	public void addWorker(Worker worker) {
