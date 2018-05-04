@@ -24,7 +24,7 @@ public class CreateProject {
 	@When("^I create project with name \"([^\"]*)\"$")
 	public void iCreateProjectWithName(String name) throws Exception {
 		database = new DataBase("drdtr");
-		database.CreateProject(new Project (name, database));
+		new Project (name, database);
 	}
 
 	@Then("^the projekt with name \"([^\"]*)\" and serial number \"([^\"]*)\" is created$")
@@ -92,7 +92,7 @@ public class CreateProject {
 	@And("^the project leader with ID \"([^\"]*)\" and the workers with ID \"([^\"]*)\" and ID \"([^\"]*)\" works on project with name \"([^\"]*)\"$")
 	public void thatTheWorkersWithIDWorksOnProject(String bria, String liam, String rasm, String proj) throws Exception {
 		database = new DataBase("drdtr");
-		database.CreateProject(new Project(proj, database));
+		new Project(proj, database);
 		//project = new Project(proj);
 		Worker Brian = new Worker(bria);
 		database.getProjects().get(0).setProjectLeader(Brian, Brian);
@@ -135,6 +135,18 @@ public class CreateProject {
 	@Then("^I get the cannot remove as non-project leader error \"([^\"]*)\"$")
 	public void IGetTheCannotRemoveAsNonProjectLeaderError(String error) {
 		assertTrue(errmsg.equals(error));
+	}
+
+	@Given("^that i make (\\d+) projects$")
+	public void thatIMakeProjects(int arg1) throws Exception {
+		database = new DataBase("drdtr");
+		for (int i = 0; i <= 11; i++) {
+			new Project (Integer.toString(i), database);
+		}
+	}
+	@Then("^the last project has ID \"([^\"]*)\"$")
+	public void theLastProjectHasID(String arg1) throws Exception {
+		assertTrue(database.getProjects().get(11).getID().equals(arg1));
 	}
 	
 	@Then("^I get the no worker error \"([^\"]*)\"$")

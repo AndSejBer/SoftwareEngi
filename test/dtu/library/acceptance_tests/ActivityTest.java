@@ -19,7 +19,7 @@ public class ActivityTest {
 	@Given("^that i have a project with name \"([^\"]*)\"$")
 	public void thatIHaveAProjectWithName(String name) throws Exception {
 		database = new DataBase("drdtr");
-		database.CreateProject(new Project (name,database));
+		new Project (name,database);
 	}
 
 	@Given("^that the projectleader is logged in$")

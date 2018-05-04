@@ -58,8 +58,13 @@ And the project leader with ID "Bria" and the workers with ID "Liam" and ID "Ras
 When The worker with ID "Rasm" removes the worker with ID "Liam"
 Then I get the cannot remove as non-project leader error "Must be either project leader or the worker to remove from project"
 
+Scenario: add 12 projects
+Given that i make 12 projects
+Then the last project has ID "201812"
+
 Scenario: remove worker from project (failure because worker is not in project)
 Given that the project leader "Bria" logs in
 And the project leader with ID "Bria" and the workers with ID "Liam" and ID "Rasm" works on project with name "Proj1"
 When The worker with ID "Bria" removes the worker with ID "Ande"
 Then I get the no worker error "The worker you wanted to remove doesn't work on the project"
+

@@ -15,7 +15,7 @@ public class Work_On_Activity_Test {
 
 	public Work_On_Activity_Test() {
 		database = new DataBase("drdtr");
-		database.CreateProject(new Project("proj", database));
+		new Project("proj", database);
 		//project = new Project("Proj");
 	}
 
