@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+//Andreas
 public class GUI extends JFrame implements ActionListener{//Initialization of most parts of the GUI:
 	protected JTextArea informationLabel = new JTextArea();
 

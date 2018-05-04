@@ -3,6 +3,7 @@ package dtu.library.app;
 import java.awt.GridLayout;
 import javax.swing.*;
 
+//Andreas
 public class ChangeOperationSheet extends JPanel {
 	protected GUI parent;
 	

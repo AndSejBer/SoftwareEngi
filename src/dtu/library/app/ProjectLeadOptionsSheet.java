@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+//Andreas
 public class ProjectLeadOptionsSheet extends JPanel {
 	protected JButton chooseProjB = new JButton("Choose project");
 	protected JButton addWorkerB = new JButton("Add a coworker to the project");

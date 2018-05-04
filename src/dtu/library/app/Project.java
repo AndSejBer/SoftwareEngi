@@ -10,13 +10,15 @@ public class Project {
 	private ArrayList <Activity> activities = new ArrayList <Activity>();
 	private ArrayList <Worker> workers = new ArrayList <Worker>();
 
+	//Andreas
 	//Running number should be corrected
 	public Project(String name) {
 		this.name = name;
 		iD="" + Year.now().getValue() + "01";
 	}
 
-	public void setProjectLeader(Worker projectLeader, Worker developer) throws Exception{
+	//Andreas
+	public void setProjectLeader(Worker projectLeader, Worker developer) throws Exception{ 
 		if (this.projectLeader == null) {
 			this.projectLeader = developer;
 		} else if(this.projectLeader.getID().equals(projectLeader.getID())) {
@@ -26,6 +28,7 @@ public class Project {
 		}
 	}
 
+	//Andreas
 	public void addActivity(Worker developer, Activity activity) throws Exception{
 		if (!(projectLeader == null) && developer.getID().equals(projectLeader.getID())) {
 			activities.add(activity);
@@ -34,14 +37,17 @@ public class Project {
 		}
 	}
 
+	//Andreas
 	public ArrayList <Activity> getActivities() {
 		return activities;
 	}
 
+	//Andreas
 	public ArrayList <Worker> getWorkers() {
 		return workers;
 	}
 
+	//Andreas
 	public void addWorker(Worker worker) throws Exception {
 		for (int i = 0; i < workers.size(); i++) {
 			if (workers.get(i).getID().equals(worker.getID())) {
@@ -51,6 +57,7 @@ public class Project {
 		workers.add(worker);
 	}
 
+	//Andreas
 	public void removeWorker(Worker developer, String iD) throws Exception{
 		if(projectLeader.equals(developer) || developer.getID().equals(iD)) {
 			for (int i = 0; i < workers.size(); i++) {
