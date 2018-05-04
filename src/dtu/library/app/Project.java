@@ -57,7 +57,7 @@ public class Project {
 				if ( !(workers.get(i)==null) && workers.get(i).getID().equals(iD)) {
 					workers.remove(i);
 				} else {
-					throw new OperationNotAllowedException("No worker with ID \"" + iD + "\" exist");
+					throw new OperationNotAllowedException("The worker you wanted to remove doesn't work on the project");
 				}
 			}			
 		} else {
