@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+//Andreas
 public class MainSheet extends JPanel{
 	protected GUI parent;
 	

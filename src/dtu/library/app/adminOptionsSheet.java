@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+//Andreas
 public class adminOptionsSheet extends JPanel{
 	protected JButton makeNewWorkerB = new JButton("Make add new worker");
 	protected JButton changeToOtherWorkerB = new JButton("Change to other coworker");

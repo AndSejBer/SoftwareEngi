@@ -25,7 +25,7 @@ public class ChangeActivityTest {
 	
 	@Given("^that the projectleader logs out$")
 	public void thatTheProjectleaderIsNotLoggedIn() throws Exception {
-		//Do nothing, just don't use developer in the next bit
+		developer = new Worker ("NotB");
 	}
 
 	@Given("^the activity with name \"([^\"]*)\", time - estimate \"([^\"]*)\" , description \"([^\"]*)\", condition \"([^\"]*)\" and worker with ID \"([^\"]*)\" exists$")
