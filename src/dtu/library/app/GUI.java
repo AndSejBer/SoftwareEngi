@@ -114,7 +114,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mainSheet.startNewProjectB) {
 			if (mainSheet.newProjectNameF != null && !mainSheet.newProjectNameF.getText().equals("")) {
-				allCurrentProjects.add(new Project(mainSheet.newProjectNameF.getText(), dataBase));
+				new Project(mainSheet.newProjectNameF.getText(), dataBase);
 			} else {
 				informationLabel.append("Must give a project a name \n");
 			}
@@ -442,6 +442,8 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			} else {
 				informationLabel.append("No project with that name found \n");
 			}
+			
+			projLeadOpt.chooseProjProjF.setText("");
 
 		} else if (e.getSource() == projLeadOpt.addWorkerB) {
 			if (projLeadOpt.selected != null) {
@@ -498,16 +500,18 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 		} else if (e.getSource() == projLeadOpt.removeWorkerActB) {
 			Activity currentA = null;
-			for (int j = 0; j < projLeadOpt.selected.getActivities().size(); j++) {
-				if (projLeadOpt.selected.getActivities().get(j).getName().equals(projLeadOpt.removeWorkerWorkerActF.getText())) {
-					currentA = projLeadOpt.selected.getActivities().get(j);
-					break;
+			for (int i = 0; i < dataBase.getProjects().size(); i++) {
+				for (int j = 0; j < dataBase.getProjects().get(i).getActivities().size(); j++) {
+					if (dataBase.getProjects().get(i).getActivities().get(j).getName().equals(projLeadOpt.removeWorkerActActF.getText())) {
+						currentA = dataBase.getProjects().get(i).getActivities().get(j);
+						break;
+					}
 				}
 			}
 
 			try {
 				if (currentA != null) {
-					currentA.removeWorker(worker, worker.getID());
+					currentA.removeWorker(worker, projLeadOpt.removeWorkerWorkerActF.getText());
 					informationLabel.append("Worker removed \n");
 				} else {
 					informationLabel.append("No activity found with that name \n");
@@ -515,6 +519,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			} catch (Exception error) {
 				informationLabel.append(error.getMessage() + "\n");
 			}
+			
+			projLeadOpt.removeWorkerWorkerActF.setText("");
+			projLeadOpt.removeWorkerActActF.setText("");
 
 		} else if (e.getSource() == projLeadOpt.compActivityB) {
 			if (projLeadOpt.selected != null) {

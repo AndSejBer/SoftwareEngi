@@ -50,9 +50,7 @@ public class DataBase {
 		} catch (Exception asdf) {
 			
 		}
-		
-		workerList.add(Sage);
-		workerList.add(Otto);
+
 		workerList.add(Abel);
 		workerList.add(Jack);
 		workerList.add(Elsa);

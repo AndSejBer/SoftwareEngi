@@ -26,6 +26,8 @@ public class ProjectLeadOptionsSheet extends JPanel {
 	
 	protected JLabel removeWorkerWorkerActL = new JLabel("Worker: ");
 	protected JTextField removeWorkerWorkerActF = new JTextField();
+	protected JLabel removeWorkerActActL = new JLabel("Activity: ");
+	protected JTextField removeWorkerActActF = new JTextField();
 	
 	protected JLabel compActActL = new JLabel("Activity: ");
 	protected JTextField comActActF = new JTextField();
@@ -71,8 +73,10 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		
 		removeWorkerActP.setLayout(new GridLayout(2,1));
 		JPanel removeWorkerAddActP = new JPanel();
-		removeWorkerAddActP.setLayout(new GridLayout(2,1));
+		removeWorkerAddActP.setLayout(new GridLayout(2,2));
+		removeWorkerAddActP.add(removeWorkerActActL);
 		removeWorkerAddActP.add(removeWorkerWorkerActL);
+		removeWorkerAddActP.add(removeWorkerActActF);
 		removeWorkerAddActP.add(removeWorkerWorkerActF);
 		removeWorkerActP.add(removeWorkerActB);
 		removeWorkerActP.add(removeWorkerAddActP);
