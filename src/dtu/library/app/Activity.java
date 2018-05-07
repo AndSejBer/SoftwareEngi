@@ -107,7 +107,7 @@ public class Activity {
 		}
 	}
 	
-	
+	//
 	public void changeActivityName(Worker developer, String name) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
 			if (name!=null) {
@@ -120,7 +120,7 @@ public class Activity {
 		}
 	}
 	
-	
+	//
 	public void changeActivityTime(Worker developer, double time) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
 			if (time > 0) {
@@ -133,7 +133,7 @@ public class Activity {
 		}
 	}
 	
-	
+	//Michael
 	public void changeActivityDescription(Worker developer, String description) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
 			if (!description.equals(null)) {
@@ -146,7 +146,7 @@ public class Activity {
 		}
 	}
 	
-	
+	//Michael
 	public void changeActivityCondition(Worker developer, String condition) throws Exception{
 		if(project.getProjectLeader().equals(developer)) {
 			if (!condition.equals(null)) {

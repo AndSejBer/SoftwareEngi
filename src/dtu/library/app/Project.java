@@ -10,9 +10,6 @@ public class Project {
 	private Worker projectLeader;
 	private ArrayList <Activity> activities = new ArrayList <Activity>();
 	private ArrayList <Worker> workers = new ArrayList <Worker>();
-
-	//Andreas
-	//Running number should be corrected
 	
 	//Anders
 	public Project(String name, DataBase database) {
@@ -46,16 +43,6 @@ public class Project {
 		}else {
 			throw new OperationNotAllowedException("Must be project leader to create new activity");
 		}
-	}
-
-	//Andreas
-	public ArrayList <Activity> getActivities() {
-		return activities;
-	}
-
-	//Andreas
-	public ArrayList <Worker> getWorkers() {
-		return workers;
 	}
 
 	//Andreas
@@ -94,6 +81,14 @@ public class Project {
 
 	public String getName() {
 		return name;
+	}
+	
+	public ArrayList <Activity> getActivities() {
+		return activities;
+	}
+
+	public ArrayList <Worker> getWorkers() {
+		return workers;
 	}
 
 }

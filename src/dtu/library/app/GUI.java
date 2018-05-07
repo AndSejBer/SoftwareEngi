@@ -335,6 +335,8 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			changeOptSheet.changeActivityDescriptionActivityF.setText("");
 			changeOptSheet.changeActivityDescriptionDescriptionF.setText("");
+			
+			reDrawProjectList();
 
 		} else if (e.getSource() == changeOptSheet.changeActivityConditionB) {
 			Activity currentA = null;
@@ -361,6 +363,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			changeOptSheet.changeActivityConditionActivityF.setText("");
 			changeOptSheet.changeActivityConditionConditionF.setText("");
+			
+			reDrawProjectList();
+			
 		} else if (e.getSource() == adminOpt.makeNewWorkerB) {
 			dataBase.addWorker(new Worker(adminOpt.makeNewWorkerF.getText()));
 			adminOpt.makeNewWorkerF.setText("");
@@ -521,8 +526,11 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			projectsListAdditional.append(allCurrentProjects.get(i).getName() + " with ID: " + allCurrentProjects.get(i).getID() + "\n");
 			projectsListAdditional.append("With activities: \n");
 			for (int j = 0; j < allCurrentProjects.get(i).getActivities().size(); j++) {
-				projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + " with time used: " + allCurrentProjects.get(i).getActivities().get(j).gettimeSpent() + " of " + allCurrentProjects.get(i).getActivities().get(j).getTimeEstimate() + "\n");
+				projectsListAdditional.append("    *" + allCurrentProjects.get(i).getActivities().get(j).getName() + " with: " + allCurrentProjects.get(i).getActivities().get(j).gettimeSpent() + " amount of time used out of " + allCurrentProjects.get(i).getActivities().get(j).getTimeEstimate() + "\n");
+				projectsListAdditional.append("        With Description: " + allCurrentProjects.get(i).getActivities().get(j).getDescription() +"\n");
+				projectsListAdditional.append("        With condition for completion: " + allCurrentProjects.get(i).getActivities().get(j).getCondition() + "\n");
 			}
+			projectsListAdditional.append("\n");
 		}
 	}
 
