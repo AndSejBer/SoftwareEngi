@@ -94,6 +94,12 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		getContentPane().add(projectsList);
 		getContentPane().add(options);
 
+		//Close operation
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
