@@ -1,15 +1,15 @@
-Feature: Work on activity
-	Description: A worker keeps track of his time
-	Actors: Worker
+#Feature: Work on activity
+#	Description: A worker keeps track of his time
+#	Actors: Worker
 
-Background: There is a Worker and an activity
-	Given that I have a Worker "abc1"
-	And I have an activity with name "Act1" and time-estimate "10"
-	And Worker "abc1" takes activity "Act1"
+#Background: There is a Worker and an activity
+#	Given that I have a Worker "abc1"
+#	And I have an activity with name "Act1" and time-estimate "10"
+#	And Worker "abc1" takes activity "Act1"
 
-Scenario: Worker adds time succesfully
- 	When Worker "abc1" adds time from "10" to "12"
- 	Then Worker has worked "2" time
+#Scenario: Worker adds time succesfully
+# 	When Worker "abc1" adds time from "10" to "12"
+# 	Then Worker has worked "2" time
  	
 # Scenario: Project-leader checks time used on activity succesfully
 # 	Given Worker "abc1" adds time from "" to "" to activity ""

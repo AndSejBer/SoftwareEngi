@@ -1,12 +1,12 @@
-Feature: Tilføj og fjern medarbejder 
-Description: a worker is added or removed from projekt 
-Actor: project leader 
+#Feature: Tilføj og fjern medarbejder 
+#Description: a worker is added or removed from projekt 
+#Actor: project leader 
 
-Scenario: add worker successfully 
-Given that the project - leader is logged in 
-And I have a worker with name "Bob"  
-When I add the worker 
-Then the worker with name "Bob" is added to the projekt 
+#Scenario: add worker successfully 
+#Given that the project - leader is logged in 
+#And I have a worker with name "Bob"  
+#When I add the worker 
+#Then the worker with name "Bob" is added to the projekt 
 	
 #Scenario: add worker when projekt - leader is not logged in 
 #Given that the administrator is not logged in 
