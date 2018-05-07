@@ -16,33 +16,39 @@ public class CreateProject {
 	public CreateProject() {
 	}
 
+	//Andreas	
 	@Given("^that a worker is logged in$")
 	public void thatAWorkerIsLoggedIn() throws Exception {
 		workers.add(new Worker("abcd"));
 	}
 
+	//Andreas
 	@When("^I create project with name \"([^\"]*)\"$")
 	public void iCreateProjectWithName(String name) throws Exception {
 		database = new DataBase("drdtr");
 		new Project (name, database);
 	}
 
+	//Andreas
 	@Then("^the projekt with name \"([^\"]*)\" and serial number \"([^\"]*)\" is created$")
 	public void theProjectWithNameAndSerialNumberIsCreated(String name, String iD) {
 		assertTrue(database.getProjects().get(0).getName().equals(name) && database.getProjects().get(0).getID().equals(iD));
 	}
 
+	//Andreas
 	@When("^I set worker with ID \"([^\"]*)\" as project leader$")
 	public void iSetWorkerWithIDAsProjectLeader(String iD) throws Exception {
 		Worker Brian = new Worker (iD);
 		database.getProjects().get(0).setProjectLeader(Brian, Brian);
 	}
 
+	//Andreas
 	@Then("^worker with ID \"([^\"]*)\" is project leader on project \"([^\"]*)\"$")
 	public void workerWithIDIsProjectLeaderOnProject(String iD, String name) throws Exception {
 		assertTrue(database.getProjects().get(0).getProjectLeader().getID().equals(iD));
 	}
 
+	//Andreas
 	@When("^worker \"([^\"]*)\" sets worker \"([^\"]*)\" as project leader$")
 	public void workerSetsWorkerAsProjectLeader(String iD1, String iD2) throws Exception {
 		try {
@@ -54,11 +60,13 @@ public class CreateProject {
 		}
 	}
 
+	//Andreas
 	@Then("^I get the project leader change error \"([^\"]*)\"$")
 	public void iGetTheProjectLeaderChangeError(String error) throws Exception {
 		assertTrue(errmsg.equals(error));
 	}
 
+	//Andreas
 	@When("^I add worker with ID \"([^\"]*)\" to project with name \"([^\"]*)\"$")
 	public void iAddWorkerWithIDToProjectWithName(String iD, String name) throws Exception {
 		try {
@@ -69,11 +77,13 @@ public class CreateProject {
 		}
 	}
 
+	//Andreas
 	@Then("^worker \"([^\"]*)\" is working on project \"([^\"]*)\"$")
 	public void workerIsWorkingOnProject(String iD, String name) throws Exception {
 		assertTrue(database.getProjects().get(0).getWorkers().get(0).getID().equals(iD));
 	}
 
+	//Andreas
 	@Then("^I get the allready working on that error \"([^\"]*)\"$")
 	public void iGetTheAllreadyWorkingOnThatError(String error) throws Exception {
 		assertTrue(errmsg.equals(error));
