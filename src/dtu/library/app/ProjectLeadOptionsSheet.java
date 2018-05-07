@@ -83,5 +83,4 @@ public class ProjectLeadOptionsSheet extends JPanel {
 	public void setProject(Project project) {
 		selected = project;
 	}
-	
 }
