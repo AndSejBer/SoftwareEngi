@@ -60,6 +60,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		projLeadOpt.addWorkerB.addActionListener(this);
 		projLeadOpt.checkTimeB.addActionListener(this);
 		projLeadOpt.removeWorkerB.addActionListener(this);
+		projLeadOpt.removeWorkerActB.addActionListener(this);
 		projLeadOpt.compActivityB.addActionListener(this);
 
 		adminOpt.makeNewWorkerB.addActionListener(this);
@@ -114,8 +115,6 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 		if (e.getSource() == mainSheet.startNewProjectB) {
 			if (mainSheet.newProjectNameF != null && !mainSheet.newProjectNameF.getText().equals("")) {
 				allCurrentProjects.add(new Project(mainSheet.newProjectNameF.getText(), dataBase));
-				projectsListAdditional.append(allCurrentProjects.get(allCurrentProjects.size()-1).getName() + " with ID: " + allCurrentProjects.get(allCurrentProjects.size()-1).getID() + "\n");
-				projectsListAdditional.append("With activities: \n");
 			} else {
 				informationLabel.append("Must give a project a name \n");
 			}
@@ -130,6 +129,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			mainSheet.newProjectNameF.setText("");
 			mainSheet.newProjectLeadF.setText("");
 
+			reDrawProjectList();
 
 		}else if (e.getSource() == mainSheet.startNewActivityB) {
 			Project current = null;
@@ -137,12 +137,21 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			for (int i = 0; i < allCurrentProjects.size(); i++) {
 				if (allCurrentProjects.get(i).getID().equals(mainSheet.newActivityProjectF.getText()) || allCurrentProjects.get(i).getName().equals(mainSheet.newActivityProjectF.getText())) {
 					current = allCurrentProjects.get(i);
-					try {
-						current.addActivity(worker, new Activity(mainSheet.newActivityNameF.getText(), Double.parseDouble(mainSheet.newActivityTimeEstF.getText()), current));
-					} catch (Exception error) {
-						informationLabel.append(error.getMessage() + "\n");
-					}
 				}
+			}
+
+			try {
+				if (!mainSheet.newActivityNameF.getText().equals("")) {
+					if (!mainSheet.newActivityTimeEstF.getText().equals("")) {
+						current.addActivity(worker, new Activity(mainSheet.newActivityNameF.getText(), Double.parseDouble(mainSheet.newActivityTimeEstF.getText()), current));
+					} else {
+						throw new OperationNotAllowedException("Time estimate is required for an activity");
+					}
+				} else {
+					throw new OperationNotAllowedException("Name is required for an activity");
+				}
+			} catch (Exception error) {
+				informationLabel.append(error.getMessage() + "\n");
 			}
 
 			if (current == null) {
@@ -341,7 +350,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			changeOptSheet.changeActivityDescriptionActivityF.setText("");
 			changeOptSheet.changeActivityDescriptionDescriptionF.setText("");
-			
+
 			reDrawProjectList();
 
 		} else if (e.getSource() == changeOptSheet.changeActivityConditionB) {
@@ -369,9 +378,9 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 
 			changeOptSheet.changeActivityConditionActivityF.setText("");
 			changeOptSheet.changeActivityConditionConditionF.setText("");
-			
+
 			reDrawProjectList();
-			
+
 		} else if (e.getSource() == adminOpt.makeNewWorkerB) {
 			dataBase.addWorker(new Worker(adminOpt.makeNewWorkerF.getText()));
 			adminOpt.makeNewWorkerF.setText("");
@@ -458,7 +467,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			} else {
 				informationLabel.append("No project selected, please select the project to edit \n");
 			}
-			
+
 			projLeadOpt.addWorkerWorkerF.setText("");
 
 		} else if (e.getSource() == projLeadOpt.checkTimeB) {
@@ -472,7 +481,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			} else {
 				informationLabel.append("No project selected, please select the project to edit \n");
 			}
-			
+
 		} else if (e.getSource() == projLeadOpt.removeWorkerB) {
 			if (projLeadOpt.selected != null) {
 				try {
@@ -486,7 +495,27 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			}
 
 			projLeadOpt.removeWorkerWorkerF.setText("");
-			
+
+		} else if (e.getSource() == projLeadOpt.removeWorkerActB) {
+			Activity currentA = null;
+			for (int j = 0; j < projLeadOpt.selected.getActivities().size(); j++) {
+				if (projLeadOpt.selected.getActivities().get(j).getName().equals(projLeadOpt.removeWorkerWorkerActF.getText())) {
+					currentA = projLeadOpt.selected.getActivities().get(j);
+					break;
+				}
+			}
+
+			try {
+				if (currentA != null) {
+					currentA.removeWorker(worker, worker.getID());
+					informationLabel.append("Worker removed \n");
+				} else {
+					informationLabel.append("No activity found with that name \n");
+				}
+			} catch (Exception error) {
+				informationLabel.append(error.getMessage() + "\n");
+			}
+
 		} else if (e.getSource() == projLeadOpt.compActivityB) {
 			if (projLeadOpt.selected != null) {
 				Activity currentA = null;
@@ -496,7 +525,7 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 						break;
 					}
 				}
-				
+
 				try {
 					if (currentA != null) {
 						currentA.changeActivityName(worker, currentA.getName() + " (COMPLETED)");
@@ -510,10 +539,10 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 			} else {
 				informationLabel.append("No project selected, please select the project to edit \n");
 			}
-			
+
 			projLeadOpt.comActActF.setText("");
 			reDrawProjectList();
-			
+
 		}
 	}
 

@@ -10,6 +10,7 @@ public class ProjectLeadOptionsSheet extends JPanel {
 	protected JButton addWorkerB = new JButton("Add a coworker to the project");
 	protected JButton checkTimeB = new JButton("Check time used");
 	protected JButton removeWorkerB = new JButton("Remove a coworker from the project");
+	protected JButton removeWorkerActB = new JButton("Remove worker from activity");
 	protected JButton compActivityB = new JButton("Finish an activity");
 	
 	protected JLabel chooseProjProjL = new JLabel("Project: ");
@@ -23,6 +24,9 @@ public class ProjectLeadOptionsSheet extends JPanel {
 	protected JLabel removeWorkerWorkerL = new JLabel("Worker: ");
 	protected JTextField removeWorkerWorkerF = new JTextField();
 	
+	protected JLabel removeWorkerWorkerActL = new JLabel("Worker: ");
+	protected JTextField removeWorkerWorkerActF = new JTextField();
+	
 	protected JLabel compActActL = new JLabel("Activity: ");
 	protected JTextField comActActF = new JTextField();
 	
@@ -33,6 +37,7 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		JPanel addWorkerP = new JPanel();
 		JPanel checkTimeP = new JPanel();
 		JPanel removeWorkerP = new JPanel();
+		JPanel removeWorkerActP = new JPanel();
 		JPanel compActivityP = new JPanel();
 		
 		chooseProjP.setLayout(new GridLayout(2,1));
@@ -64,6 +69,14 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		removeWorkerP.add(removeWorkerB);
 		removeWorkerP.add(removeWorkerAddP);
 		
+		removeWorkerActP.setLayout(new GridLayout(2,1));
+		JPanel removeWorkerAddActP = new JPanel();
+		removeWorkerAddActP.setLayout(new GridLayout(2,1));
+		removeWorkerAddActP.add(removeWorkerWorkerActL);
+		removeWorkerAddActP.add(removeWorkerWorkerActF);
+		removeWorkerActP.add(removeWorkerActB);
+		removeWorkerActP.add(removeWorkerAddActP);
+		
 		compActivityP.setLayout(new GridLayout(2,1));
 		JPanel compActAddP = new JPanel();
 		compActAddP.setLayout(new GridLayout(2,1));
@@ -72,11 +85,12 @@ public class ProjectLeadOptionsSheet extends JPanel {
 		compActivityP.add(compActivityB);
 		compActivityP.add(compActAddP);
 		
-		this.setLayout(new GridLayout(5,1));
+		this.setLayout(new GridLayout(6,1));
 		this.add(chooseProjP);
 		this.add(addWorkerP);
 		this.add(checkTimeP);
 		this.add(removeWorkerP);
+		this.add(removeWorkerActP);
 		this.add(compActivityP);
 	}
 	
