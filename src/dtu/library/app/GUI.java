@@ -312,7 +312,8 @@ public class GUI extends JFrame implements ActionListener{//Initialization of mo
 				currentA.changeActivityTime(worker, Double.parseDouble(changeOptSheet.changeTimeEstimateTimeEstimateF.getText()));
 				informationLabel.append("Succesfully updated the time estimate on the activity \n");
 			} catch (Exception error) {
-				informationLabel.append(error.getStackTrace().toString());
+				//An attempt was made to handle string to double mistakes, no good solution was found 
+				informationLabel.append(error.getMessage() + "\n");
 				if (currentA == null) {
 					informationLabel.append("No activity found with name: " + changeOptSheet.changeTimeEstimateActivityF.getText() + "\n");
 				} else {
