@@ -42,12 +42,12 @@ public class Activity {
 		throw new OperationNotAllowedException("Time estimate is required for an activity");
 	}
 
-	//Andreas
+	//Jesper
 	public void addTimeSpent(double workedfrom, double workedtoo, Worker worker) throws Exception {
 		addTimeSpent(workedtoo - workedfrom, worker.getID());
 	}
 
-	//Andreas
+	//Jesper
 	public void addTimeSpent(double time, String iD) throws Exception {
 		if (time < 0) {
 			throw new OperationNotAllowedException("Can not work zero or negative amount of hours");
