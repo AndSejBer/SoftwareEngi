@@ -1,3 +1,7 @@
+## Now runs in Activity.feature, and it's no longer run here.
+
+
+
 #Feature: Tilføj og fjern medarbejder 
 #Description: a worker is added or removed from projekt 
 #Actor: project leader 

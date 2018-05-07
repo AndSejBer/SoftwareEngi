@@ -1,3 +1,7 @@
+## Is completed in work_om_activity.feature, and as such it's not run here
+
+
+
 #Feature: Working together on an activity 
 #Descrip-tion: Two or more workers should be able to work together on an activity, both being able to register their work hours and a worker can ask another for help.
 #Actors: Workers 

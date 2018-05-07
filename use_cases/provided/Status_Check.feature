@@ -1,3 +1,7 @@
+## Now runs under Create_Project.feature and Activity.feature, and is no longer run here.
+
+
+
 #Feature: check status of activity 
 #Description: An activity is added 
 #Actors: project leader 
