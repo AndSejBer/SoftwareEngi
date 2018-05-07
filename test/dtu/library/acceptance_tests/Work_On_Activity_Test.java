@@ -24,7 +24,7 @@ public class Work_On_Activity_Test {
 		database.getProjects().get(0).addWorker(workers.get(workers.size() - 1));
 	}
 
-	//Andreas
+	//Jesper
 	@Given("^I have an activity with name \"([^\"]*)\" and time-estimate \"([^\"]*)\"$")
 	public void iHaveAnActivityWithNameAndTimeEstimate(String name, double te) throws Exception {
 		workers.add(0, new Worker("ProL"));
@@ -32,7 +32,7 @@ public class Work_On_Activity_Test {
 		database.getProjects().get(0).addActivity(workers.get(0), new Activity(name, te, database.getProjects().get(0)));
 	}
 
-	//Andreas
+	//Jesper
 	@When("^Worker \"([^\"]*)\" takes activity \"([^\"]*)\"$")
 	public void workerTakesActivity(String iD, String name) throws Exception {
 		try {
@@ -42,13 +42,13 @@ public class Work_On_Activity_Test {
 		}
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^Worker \"([^\"]*)\" is working on activity \"([^\"]*)\"$")
 	public void workerIsWorkingOnActivity(String iD, String name) throws Exception {
 		assertTrue(database.getProjects().get(0).getActivities().get(0).getWorkers()[0].getID().equals(iD));
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^Worker \"([^\"]*)\" and Worker \"([^\"]*)\" is working on activity \"([^\"]*)\"$")
 	public void workerAndWorkerIsWorkingOnActivity(String iD1, String iD2, String name) throws Exception {
 		assertTrue(database.getProjects().get(0).getActivities().get(0).getWorkers()[0].getID().equals(iD1)
@@ -56,7 +56,7 @@ public class Work_On_Activity_Test {
 
 	}
 	
-	//Andreas
+	//Jesper
 	@When("^Worker \"([^\"]*)\" works on the activity and add the time used: \"([^\"]*)\"$")
 	public void IWorkOnTheActivityAndAddTheTimeUsed(String iD, double tid) throws Exception {
 		try {
@@ -66,7 +66,7 @@ public class Work_On_Activity_Test {
 		}
 	}
 
-	//Andreas
+	//Jesper
 	@When("^Worker \"([^\"]*)\" works on the activity and add the time from: \"([^\"]*)\" to \"([^\"]*)\"$")
 	public void workerWorksOnTheActivityAndAddTheTimeFromTo(String worker, double from, double too) throws Exception {
 		try {
@@ -77,25 +77,25 @@ public class Work_On_Activity_Test {
 		}
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^I get the Can not work zero or negative amount of hours error \"([^\"]*)\"$")
 	public void iGetTheCanNotWorkOrNegativeAmountOfHoursError(String arg1) throws Exception {
 		assertTrue(errmsg.equals(arg1));
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^The activity has accumulated \"([^\"]*)\" amount of time$")
 	public void theActivityHasAccumulatedAmountOfTime(double alltime) throws Exception {
 		assertTrue(database.getProjects().get(0).getActivities().get(0).gettimeSpent() == (alltime));
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^I get the Must be assigned to activity to add time error \"([^\"]*)\"$")
 	public void IGetTheMustBeAssignedToActivityToAddTimeerror(String arg1) throws Exception {
 		assertTrue(errmsg.equals(arg1));
 	}
 
-	//Andreas
+	//Jesper
 	@Then("^I get the Activity must exist to assign error \"([^\"]*)\"$")
 	public void IgettheActivitymustexisttoassigerror(String arg1) throws Exception {
 		assertTrue(errmsg.equals(arg1));
